@@ -7,6 +7,9 @@ import mongoose from "mongoose"
 import authRoute from "./route/authRoute.js"
 import userRoute from "./route/userRoute.js"
 import postRoute from "./route/postRoute.js"
+import commentRoute from "./route/commentRoute.js"
+
+
 
 const app = express()
 
@@ -30,9 +33,14 @@ mongoose.connect(process.env.MONGO_URL)
 // ROUTE
 app.use('/api/auth', authRoute)
 
+
 app.use("/api/user", userRoute)
 
+
 app.use("/api/post", postRoute)
+
+
+app.use('/api/comment' ,commentRoute)
 
 
 
@@ -42,6 +50,7 @@ app.get('/', (req,res) => {
     res.send('Hello Coop')
 
 })
+
 
 
 // listening
