@@ -1,7 +1,7 @@
 
 
 import express from "express"
-import { createPost, deletePost, getPost, getPosts, updatePost } from "../controller/postController.js"
+import { createPost, deletePost, getPost, getPosts, stats, updatePost } from "../controller/postController.js"
 import { verifyToken } from "../utils/verifyUser.js"
 
 
@@ -21,6 +21,9 @@ postRoute.put("/update-post/:postId/:userId",verifyToken, updatePost)
 
 
 postRoute.delete("/delete-post/:postId/:userId",verifyToken, deletePost)
+
+
+postRoute.post("/stats", verifyToken, stats)
 
 
 

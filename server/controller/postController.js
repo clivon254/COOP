@@ -1,5 +1,8 @@
 
+import mongoose from "mongoose"
+import Follower from "../model/followersModel.js"
 import Post from "../model/postModel.js"
+import User from "../model/userModel.js"
 import Veiw from "../model/veiwModel.js"
 import { errorHandler } from "../utils/error.js"
 
@@ -166,6 +169,167 @@ export const deletePost = async (req,res,next) => {
         await Post.findByIdAndDelete(req.params.postId)
 
         res.status(200).json({success:true , message:"The post has been deleted"})
+
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const stats = async (req,res,next) => {
+
+    try
+    {
+        const {query} = req.query 
+
+        const userId = req.user.id 
+
+        const numofDays = Number(query) || 28 
+
+        const currentDate = new Date()
+
+        const startDate = new Date()
+
+        startDate.setDate(currentDate.getDate() - numofDays)
+
+        // Admin
+        const totalPostsAdmin = await Post.find({}).countDocuments()
+
+
+        const totalUsersAdmin = await User.find({}).countDocuments()
+
+
+        const totalWritersAdmin = await User.find({
+            accountType:"writer"
+        }).countDocuments()
+
+
+        const totalVeiwsAdmin = await Veiw.find({
+            createdAt:{ $gte: startDate , $lte:currentDate}
+        }).countDocuments()
+
+
+        const totalFollowersAdmin = await Follower.find({
+            createdAt:{ $gte: startDate , $lte:currentDate}
+        }).countDocuments()
+
+
+        const last5postsAdmin = await Post.find({}).limit(5).sort({_id: -1})
+
+
+        const veiwStatsAdmin = await Veiw.aggregate([
+            {
+                $match:{
+                    createdAt:{ $gte: startDate , $lte:currentDate}
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString: { format : "%Y-%m-%d", date:"$createdAt"}
+                    },
+                    Total: { $sum: 1 }
+                }
+            },
+            { $sort: {_id: 1 } }
+        ])
+                   
+        
+        const followerStatsAdmin = await Follower.aggregate([
+            {
+                $match:{
+                    createdAt:{ $gte: startDate , $lte:currentDate}
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString: { format : "%Y-%m-%d", date:"$createdAt"}
+                    },
+                    Total: { $sum: 1 }
+                }
+            },
+            { $sort: {_id: 1 } }
+        ])
+
+        // witer posts
+        const totalPosts = await Post.find({userId:userId}).countDocuments()
+
+
+        const totalFollowers = await Follower.find({writerId:userId}).countDocuments()
+        
+
+        const last5followers = await User.findById(userId).populate({
+            path:"followers",
+            options:{sort : {_id : -1}},
+            perDocumentLimit: 5,
+            populate:{
+                path:"followerId"
+            }
+        }) 
+
+        
+        const last5posts = await Post.find({userId:userId}).limit(5).sort({_id: -1})
+
+
+        const veiwStats = await Veiw.aggregate([
+            {
+                $match:{
+                    userId: new mongoose.Types.ObjectId(userId),
+                    createdAt:{ $gte: startDate , $lte:currentDate}
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString: { format : "%Y-%m-%d", date:"$createdAt"}
+                    },
+                    Total: { $sum: 1 }
+                }
+            },
+            { $sort: {_id: 1 } }
+        ])
+
+        
+        const followerStats = await Follower.aggregate([
+            {
+                $match:{
+                    writerId: new mongoose.Types.ObjectId(userId),
+                    createdAt:{ $gte: startDate , $lte:currentDate}
+                }
+            },
+            {
+                $group:{
+                    _id:{
+                        $dateToString: { format : "%Y-%m-%d", date:"$createdAt"}
+                    },
+                    Total: { $sum: 1 }
+                }
+            },
+            { $sort: {_id: 1 } }
+        ])
+
+
+        res.status(200)
+            .json({ success:true ,
+                    totalFollowersAdmin,
+                    totalPostsAdmin,
+                    totalUsersAdmin,
+                    totalWritersAdmin,
+                    totalVeiwsAdmin,
+                    last5postsAdmin,
+                    veiwStatsAdmin,
+                    followerStatsAdmin,
+                    totalFollowers,
+                    totalPosts,
+                    veiwStats,
+                    followerStats,
+                    last5followers,
+                    last5posts
+            })
 
     }
     catch(error)
