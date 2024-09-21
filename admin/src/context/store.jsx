@@ -8,7 +8,9 @@ export default function StoreContextProvider(props) {
 
     const url = "http://localhost:800"
 
-    const contextValue = {}
+    const contextValue = {
+      url
+    }
 
   return (
 

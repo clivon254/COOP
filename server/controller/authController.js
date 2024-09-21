@@ -200,7 +200,7 @@ export const forgotPassword = async (req,res,next) => {
             from:"COOP ICT support",
             to:user.email,
             subject:"Reset Password",
-            text:`Click on this to reset your password: http://localhost:5173/reset-password/${token}`
+            text:`Click on this to reset your password: http://localhost:5174/reset-password/${token}`
         }
 
         transporter.sendMail(mailOptions ,(error,info) => {
