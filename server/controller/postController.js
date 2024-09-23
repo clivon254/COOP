@@ -159,7 +159,7 @@ export const updatePost = async (req,res,next) => {
 
 export const deletePost = async (req,res,next) => {
 
-    if(!req.user.isAdmin || req.user.id !== req.params.userId || req.user.accountType !== "writer")
+    if(!req.user.isAdmin || req.user.id !== req.params.userId )
     {
         return(next(errorHandler(403,"You are not allowed to post")))
     }
@@ -255,6 +255,12 @@ export const stats = async (req,res,next) => {
             { $sort: {_id: 1 } }
         ])
 
+        const last5followersAdmin = await Follower.find().populate({
+            path:"followerId",
+            options:{sort : {_id : -1}},
+            perDocumentLimit: 5
+        }) 
+
         // witer posts
         const totalPosts = await Post.find({userId:userId}).countDocuments()
 
@@ -320,6 +326,7 @@ export const stats = async (req,res,next) => {
                     totalUsersAdmin,
                     totalWritersAdmin,
                     totalVeiwsAdmin,
+                    last5followersAdmin,
                     last5postsAdmin,
                     veiwStatsAdmin,
                     followerStatsAdmin,

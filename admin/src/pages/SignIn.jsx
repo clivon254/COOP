@@ -2,7 +2,6 @@
 
 import React, { useContext, useState } from 'react'
 import Logo from '../components/Logo'
-import { FcGoogle } from "react-icons/fc"
 import Divider from '../components/Divider'
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react"
 import { useDispatch, useSelector } from "react-redux"
@@ -11,6 +10,10 @@ import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSli
 import axios from "axios"
 import { StoreContext } from '../context/store'
 import {toast} from "sonner"
+import OAuth from '../components/OAuth'
+
+
+ axios.create({withCredentials:true})
 
 
 export default function SignIn() {
@@ -49,7 +52,7 @@ export default function SignIn() {
 
       dispatch(signInStart())
 
-      const res = await axios.post(url + "/api/auth/sign-in",formData)
+      const res = await axios.post("/api/auth/sign-in",formData)
 
       if(res.data.success)
       {
@@ -62,11 +65,16 @@ export default function SignIn() {
       else
       {
         dispatch(signInFailure(res.data.message))
+        
+        console.log(res.data.message)
       }
     }
     catch(error)
     {
       dispatch(signInFailure(error.message))
+
+      console.log(error.message)
+
     }
 
   }
@@ -104,9 +112,7 @@ export default function SignIn() {
 
               </div>
 
-              <button className="w-full flex flex-row-reverse justify-center items-center gap-4 bg-white dark:transparent text-black dark:text-white px-5 py-2.5 rounded-full border border-gray-300 font-semibold">
-                Sign in with Google <FcGoogle/>
-              </button>
+              <OAuth/>
 
               <Divider label="or sign with email"/>
 

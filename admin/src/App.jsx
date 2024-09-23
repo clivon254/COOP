@@ -16,6 +16,9 @@ import EditPost from './pages/EditPost'
 import Users from './pages/Users'
 import Analytics from './pages/Analytics'
 import PostPage from './pages/PostPage'
+import Header from './components/Header'
+import DashSidebar from './components/DashSidebar'
+import Profile from './pages/Profile'
 
 
 
@@ -27,8 +30,24 @@ function Layout()
 
       User ? 
       <div className="">
+        
+        <Header/>
 
-        <Outlet/>
+        <div className="w-full flex flex-row">
+
+            <div className="hidden md:block md:w-1/5  border-r min-h-screen">
+
+                <DashSidebar/>
+
+            </div>
+
+            <div className="w-full md:w-4/5">
+
+                <Outlet/>
+
+            </div>
+
+        </div>
 
       </div> 
       : 
@@ -44,7 +63,7 @@ export default function App() {
 
         <Toaster richColors/>
 
-        <main className="">
+        <main className="min-h-screen w-full">
 
           <Routes>
 
@@ -54,15 +73,17 @@ export default function App() {
 
                 <Route path="/posts" element={<Posts/>}/>
 
+                <Route path="/profile" element={<Profile/>}/>
+
                 <Route path="/add-post" element={<AddPost/>}/>
 
-                <Route path="/edit-post" element={<EditPost/>}/>
+                <Route path="/edit-post/:postId" element={<EditPost/>}/>
 
                 <Route path="/users" element={<Users/>}/> 
 
                 <Route path="/analytics" element={<Analytics/>}/>
 
-                <Route path="/post/:slud" element={<PostPage/>}/>
+                <Route path="/post/:slug" element={<PostPage/>}/>
 
             </Route>
 
