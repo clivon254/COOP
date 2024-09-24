@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema({
 
     veiw:[{type:mongoose.Schema.Types.ObjectId , ref:"Veiw"}],
 
-    userId:[{type:mongoose.Schema.Types.ObjectId , ref:"User"}],
+    userId:{type:mongoose.Schema.Types.ObjectId , ref:"User"},
 
     status:{type:Boolean , default:true}
 },

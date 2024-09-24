@@ -22,6 +22,12 @@ export default function StoreContextProvider(props) {
 
     const [showMore ,setShowMore] = useState(true)
 
+    const [popularArticles, setPopularArticles] = useState([])
+
+    const [popularWriters, setPopularWriters] = useState([])
+
+    console.log(popularWriters)
+
     // fetchData
     const fetchData = async () => {
 
@@ -123,12 +129,36 @@ export default function StoreContextProvider(props) {
 
     }
 
+    // fetchPopularArticles
+    const fetchPopularArticles = async () => {
+
+      try
+      {
+        const res = await axios.post('/api/post/popular-content')
+
+        if(res.data.success)
+        {
+          setPopularArticles(res.data.posts)
+
+          setPopularWriters(res.data.writers)
+        }
+
+      }
+      catch(error)
+      {
+        console.log(error.message)
+      }
+
+    }
+
 
     useEffect(() => {
 
       fetchData()
 
       fetchPosts()
+
+      fetchPopularArticles()
 
     },[])
 
@@ -147,7 +177,11 @@ export default function StoreContextProvider(props) {
       setShowMore,
       handleShowMore,
       Error,
-      setError
+      setError,
+      popularArticles,
+      setPopularArticles,
+      popularWriters,
+      setPopularWriters
     }
 
   return (

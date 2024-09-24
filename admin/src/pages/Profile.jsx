@@ -2,13 +2,14 @@
 
 import React, { useRef, useState ,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { getStorage, ref, uploadBytesResumable } from "firebase/storage"
+import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 import { deleteUserFailure, deleteUserSuccess, signOutSuccess, updateUserFailure, updateUserStart,updateUserSuccess } from '../redux/user/userSlice'
 import axios from 'axios'
 import { toast } from 'sonner'
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Alert, Button, Modal, TextInput } from 'flowbite-react'
+import { app } from '../firebase'
 
 
 export default function Profile() {
@@ -25,9 +26,9 @@ export default function Profile() {
 
     const [imageFileImageUploadError ,setImageFileUploadError] = useState(null)
 
-    const [updateUserSuccess, setUpdateUserSuccess] = useState(null)
+    const [updateSuccess, setUpdateSuccess] = useState(null)
 
-    const [updateUserError, setUpdateUserError] = useState(null)
+    const [updateError, setUpdateError] = useState(null)
 
     const [formData, setFormData] = useState({})
 
@@ -111,7 +112,7 @@ export default function Profile() {
 
 
     // handleChange
-    const handleChange = () => {
+    const handleChange = (e) => {
 
         setFormData({...formData, [e.target.name]: e.target.value})
 
@@ -125,14 +126,14 @@ export default function Profile() {
 
         if(Object.keys(formData).length === 0)
         {
-            setUpdateUserError('No changes made')
+            setUpdateError('No changes made')
 
             return;
         }
 
         if(imageFileImageUploading)
         {
-            setUpdateUserError("please waite for the image to finish uploading")
+            setUpdateError("please waite for the image to finish uploading")
 
             return
         }
@@ -145,7 +146,7 @@ export default function Profile() {
 
             if(res.data.success)
             {
-                dispatch(updateUserSuccess(res.data.updatedUser))
+                dispatch(updateUserSuccess(res.data.rest))
 
                 toast.success("profile update successfully")
 
@@ -153,9 +154,11 @@ export default function Profile() {
         }
         catch(error)
         {
-            setUpdateUserError(error.message)
+            setUpdateError(error.message)
 
             dispatch(updateUserFailure(error.message))
+
+            console.log(error.message)
         }
     }
 
@@ -217,7 +220,7 @@ export default function Profile() {
             <input 
                 type="file" 
                 accept="image/*"
-                onChange={handleChange}
+                onChange={handleImageChange}
                 ref={filePickerRef}
                 hidden
             />
@@ -281,9 +284,9 @@ export default function Profile() {
             />
 
             <TextInput
-                type='text'
-                name="username"
-                placeholder='username'
+                type='password'
+                name="password" 
+                placeholder='********'
                 onChange={handleChange}
             />
 
@@ -291,7 +294,7 @@ export default function Profile() {
                 type="submit"
                 gradientDuoTone='purpleToBlue'
                 outlined
-                isabled={loading || imageFileImageUploading}
+                disabled={loading || imageFileImageUploading}
             >
                 {loading ? "Loading ...." :"update"}
             </Button>
@@ -310,12 +313,12 @@ export default function Profile() {
 
         </div>
 
-        {updateUserSuccess && (
-            <Alert color="success" className="mt-5">{updateUserSuccess}</Alert>
+        {updateSuccess && (
+            <Alert color="success" className="mt-5">{updateSuccess}</Alert>
         )}
 
-        {updateUserError && (
-            <Alert color="failure" className="mt-5">{updateUserError}</Alert>
+        {updateError && (
+            <Alert color="failure" className="mt-5">{updateError}</Alert>
         )}
 
         <Modal

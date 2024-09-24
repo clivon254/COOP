@@ -64,198 +64,199 @@ export default function Posts() {
         <h1 className="my-7 text-center font-semibold text-3xl">Posts</h1>
 
           {!Loading && (
-              <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
+            <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
 
-                {posts?.length > 0 ? 
-                  (
-                    <>
-                    
-                      <Table>
+              {posts?.length > 0 ? 
+                (
+                  <>
+                  
+                    <Table>
 
-                        <Table.Head>
+                      <Table.Head>
 
-                          <Table.HeadCell>Dated Updated</Table.HeadCell>
+                        <Table.HeadCell>Dated Updated</Table.HeadCell>
 
-                          <Table.HeadCell>Image</Table.HeadCell>
+                        <Table.HeadCell>Image</Table.HeadCell>
 
-                          <Table.HeadCell>title</Table.HeadCell>
+                        <Table.HeadCell>title</Table.HeadCell>
 
-                          <Table.HeadCell>Category</Table.HeadCell>
+                        <Table.HeadCell>Category</Table.HeadCell>
 
-                          <Table.HeadCell>status</Table.HeadCell>
+                        <Table.HeadCell>status</Table.HeadCell>
 
-                          <Table.HeadCell>Action</Table.HeadCell>
+                        <Table.HeadCell>Action</Table.HeadCell>
 
-                        </Table.Head>
-                        
-                          {posts?.map((post,index) => (
+                      </Table.Head>
+                      
+                        {posts?.map((post,index) => (
 
-                            <Table.Body key={index}>
+                          <Table.Body key={index}>
 
-                              <Table.Row>
+                            <Table.Row>
 
-                                  <Table.Cell>
-                                    {new Date(post.updatedAt).toLocaleString()}
-                                  </Table.Cell>
+                                <Table.Cell>
+                                  {new Date(post.updatedAt).toLocaleString()}
+                                </Table.Cell>
 
-                                  <Table.Cell>
-                                    <img 
-                                        src={post.image} 
-                                        alt={post.title}
-                                        className="w-20 h-10"
-                                    />
-                                  </Table.Cell>
+                                <Table.Cell>
+                                  <img 
+                                      src={post.image} 
+                                      alt={post.title}
+                                      className="w-20 h-10"
+                                  />
+                                </Table.Cell>
 
-                                  <Table.Cell>
-                                    {post.title}
-                                  </Table.Cell>
+                                <Table.Cell>
+                                  {post.title}
+                                </Table.Cell>
 
-                                  <Table.Cell>
-                                    {post.category}
-                                  </Table.Cell>
+                                <Table.Cell>
+                                  {post.category}
+                                </Table.Cell>
 
-                                  <Table.Cell>
-                                    <span className={clsx("px-3 py-2 rounded-full text-xs font-semibold",post.status ? "bg-green-400 text-green-200" :"bg-red-400 text-red-200")}>
-                                        {post.status ? "active" : "inactive"}
+                                <Table.Cell>
+                                  <span className={clsx("px-3 py-2 rounded-full text-xs font-semibold",post.status ? "bg-green-400 text-green-200" :"bg-red-400 text-red-200")}>
+                                      {post.status ? "active" : "inactive"}
+                                  </span>
+                                </Table.Cell>
+
+                                <Table.Cell>
+
+                                  <div className="flex items-center gap-x-3">
+
+                                    <span className="">
+
+                                      <Link to={`/post/${post.slug}`}>
+
+                                          <MdViewArray size={20}/>
+
+                                      </Link>
+
                                     </span>
-                                  </Table.Cell>
 
-                                  <Table.Cell>
+                                    <span className="">
 
-                                    <div className="flex items-center gap-x-3">
+                                        <Link to={`/edit-post/${post._id}`}>
 
-                                      <span className="">
-
-                                        <Link to={`/post/:${post.slug}`}>
-
-                                            <MdViewArray size={20}/>
+                                            <MdEdit size={20}/>
 
                                         </Link>
 
-                                      </span>
+                                    </span>
 
-                                      <span className="">
+                                    <span className="cursor-pointer">
+                                      <FaTrash 
+                                          size={20}
+                                          onClick={() => {setShowModal(true)  ; setPostIdToDelete(post._id)}}
+                                      />
+                                    </span>
 
-                                          <Link to={`/edit-post/${post._id}`}>
+                                  </div>
 
-                                              <MdEdit size={20}/>
+                                </Table.Cell>
 
-                                          </Link>
+                            </Table.Row>
 
-                                      </span>
+                          </Table.Body>
 
-                                      <span className="cursor-pointer">
-                                        <FaTrash 
-                                            size={20}
-                                            onClick={() => {setShowModal(true)  ; setPostIdToDelete(post._id)}}
-                                        />
-                                      </span>
+                        ))}
+                    
+                    </Table>
+                    
+                    {showMore && (
 
-                                    </div>
+                      <button 
+                          onClick={handleShowMore}
+                          className="w-full text-teal-500 hover:underline"
+                      >
+                        show more
+                      </button>
 
-                                  </Table.Cell>
+                    )}
 
-                              </Table.Row>
+                  </>
 
-                            </Table.Body>
-
-                          ))}
-                      
-                      </Table>
-                      
-                      {showMore && (
-
-                        <button 
-                            onClick={handleShowMore}
-                            className="w-full text-teal-500 hover:underline"
-                        >
-                          show more
-                        </button>
-
-                      )}
-
-                    </>
-
-                  ) 
-                  : 
-                  (
-                    <p className="text-center text-2xl my-10">No posts yet</p>
-                  )
-                }
-          
-             </div>
+                ) 
+                : 
+                (
+                  <p className="text-center text-2xl my-10">No posts yet</p>
+                )
+              }
+        
+            </div>
           )}
         
-        {Loading && (
+          {Loading && (
 
-          <Table>
+            <Table>
 
-            <Table.Head>
+              <Table.Head>
 
-              <Table.HeadCell>Dated Updated</Table.HeadCell>
+                <Table.HeadCell>Dated Updated</Table.HeadCell>
 
-              <Table.HeadCell>Image</Table.HeadCell>
+                <Table.HeadCell>Image</Table.HeadCell>
 
-              <Table.HeadCell>title</Table.HeadCell>
+                <Table.HeadCell>title</Table.HeadCell>
 
-              <Table.HeadCell>Category</Table.HeadCell>
+                <Table.HeadCell>Category</Table.HeadCell>
 
-              <Table.HeadCell>status</Table.HeadCell>
+                <Table.HeadCell>status</Table.HeadCell>
 
-              <Table.HeadCell>Action</Table.HeadCell>
+                <Table.HeadCell>Action</Table.HeadCell>
 
-            </Table.Head>
-            
-            {Loader.map((loader,index) => (
-                <Table.Body key={index}>
-
-                  <Table.Row className="animate-pulse">
-
-                    <Table.Cell >
-
-                      <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
-
-                    </Table.Cell>
-
-                    <Table.Cell>
-
-                      <div className="bg-gray-400 h-8 w-12 rounded-md "></div>
-
-                    </Table.Cell>
-
-                    <Table.Cell>
-
-                      <div className="bg-gray-400 h-5 w-20 rounded-full "></div>
-
-                    </Table.Cell>
-
-                    <Table.Cell>
-
-                      <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
-
-                    </Table.Cell>
-
-                    <Table.Cell>
-
-                      <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
-
-                    </Table.Cell>
-
-                    <Table.Cell>
-
-                      <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
-
-                    </Table.Cell>
-
-                  </Table.Row>
-
-              </Table.Body>
-            ))}
+              </Table.Head>
               
+              {Loader.map((loader,index) => (
+                  <Table.Body key={index}>
 
-          </Table>
+                    <Table.Row className="animate-pulse">
 
-        )}
+                      <Table.Cell >
+
+                        <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
+
+                      </Table.Cell>
+
+                      <Table.Cell>
+
+                        <div className="bg-gray-400 h-8 w-12 rounded-md "></div>
+
+                      </Table.Cell>
+
+                      <Table.Cell>
+
+                        <div className="bg-gray-400 h-5 w-20 rounded-full "></div>
+
+                      </Table.Cell>
+
+                      <Table.Cell>
+
+                        <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
+
+                      </Table.Cell>
+
+                      <Table.Cell>
+
+                        <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
+
+                      </Table.Cell>
+
+                      <Table.Cell>
+
+                        <div className="bg-gray-400 h-5 w-14 rounded-full "></div>
+
+                      </Table.Cell>
+
+                    </Table.Row>
+
+                </Table.Body>
+              ))}
+                
+
+            </Table>
+
+          )}
+
         <Modal
           show={showModal}
           onClose={() => setShowModal(false)}

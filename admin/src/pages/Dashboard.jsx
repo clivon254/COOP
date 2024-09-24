@@ -37,22 +37,22 @@ export default function Dashboard() {
           {/* recent followers */}
           <div className="w-full md:w-1/3 flex flex-col ">
 
-              <span className={clsx("py-5 text-base font-medium",themes ? "text-slate-600":"text-white")}>
+              <span className={clsx("py-5 text-base font-bold",themes ? "text-slate-600":"text-white")}>
                 Recent followers
               </span>
 
-              <RecentFollowerTable/>
+              <RecentFollowerTable data={data.last5followersAdmin}/>
 
           </div>
 
           {/* Top 5 contents */}
           <div className="w-full md:w-2/3 flex flex-col ">
 
-              <span className={clsx("py-5 text-base font-medium",themes ? "text-slate-600":"text-white")}>
+              <span className={clsx("py-5 text-base font-bold",themes ? "text-slate-600":"text-white")}>
                 Recent Post
               </span>
 
-              {/* <RecentPostTable data={data.last5posts}/> */}
+              <RecentPostTable data={data.last5postsAdmin}/>
 
           </div>
 

@@ -19,6 +19,7 @@ import PostPage from './pages/PostPage'
 import Header from './components/Header'
 import DashSidebar from './components/DashSidebar'
 import Profile from './pages/Profile'
+import WriterPage from './pages/WriterPage'
 
 
 
@@ -84,6 +85,8 @@ export default function App() {
                 <Route path="/analytics" element={<Analytics/>}/>
 
                 <Route path="/post/:slug" element={<PostPage/>}/>
+
+                <Route path="/writer/:writerId" element={<WriterPage/>}/>
 
             </Route>
 

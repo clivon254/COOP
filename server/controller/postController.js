@@ -50,31 +50,32 @@ export const createPost = async (req,res,next) => {
 
 }
 
+
 export const getPost = async (req,res,next) => {
 
     try
     {
-        const {postId} = req.params
+        const {slug} = req.params
 
         const userId = req.user.id
 
-        const post = await Post.findById(postId)
+        const post = await Post.findOne({slug})
                      .populate({
                         path:"userId",
                      })
 
-        const existingVeiw = await Veiw.findOne({postId ,userId})
+        const existingVeiw = await Veiw.findOne({postId:post._id ,userId})
         
         if(!existingVeiw)
         {
             const newVeiw = await Veiw.create({
                 userId:post?.userId,
-                post:postId
+                post:post._id
            })
 
            post.veiw.push(newVeiw?._id)
 
-           await Post.findByIdAndUpdate(postId ,post)
+           await Post.findByIdAndUpdate(post._id ,post)
         }
     
 
@@ -87,6 +88,7 @@ export const getPost = async (req,res,next) => {
     }
 
 }
+
 
 export const getPosts = async (req,res,next) => {
 
@@ -126,6 +128,7 @@ export const getPosts = async (req,res,next) => {
 
 }
 
+
 export const updatePost = async (req,res,next) => {
 
     if(!req.user.isAdmin || req.user.id !== req.params.userId)
@@ -156,6 +159,7 @@ export const updatePost = async (req,res,next) => {
     }
 
 }
+
 
 export const deletePost = async (req,res,next) => {
 
@@ -338,6 +342,65 @@ export const stats = async (req,res,next) => {
                     last5posts
             })
 
+    }
+    catch(error)
+    {
+        next(error)
+    }
+
+}
+
+
+export const getPopularContent = async (req,res,next) => {
+
+    try
+    {
+        const posts = await Post.aggregate([
+            {
+                $match:{
+                    status:true
+                },
+            },
+            {
+                $project:{
+                    title:1,
+                    slug:1,
+                    image:1,
+                    category:1,
+                    veiw:{ $size :"$veiw" },
+                    createdAt:1
+                }
+            },
+            {
+                $sort:{veiws: -1}
+            },
+            {
+                $limit:5
+            }
+        ])
+
+        const writers = await User.aggregate([
+            {
+                $match:{
+                    accountType:{$ne:"user"}
+                },
+            },
+            {
+                $project:{
+                    username: 1,
+                    profilePicture: 1,
+                    followers:{ $size : "$followers" }
+                }
+            },
+            {
+                $sort:{followers: -1}
+            },
+            {
+                $limit:5
+            }
+        ])
+
+        res.status(200).json({success:true , posts ,writers})
     }
     catch(error)
     {
