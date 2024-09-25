@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.sticky {
+    position:sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000000000000;
+}
+
+.active{
+
+    @apply font-semibold text-orange-500 text-base ease-in-out duration-500 
+ 
+  }
+
+
+.active-link{
+
+    @apply text-orange-500 text-base  font-semibold relative flex-1 after:w-full after:h-[2px] after:bg-orange-500 after:absolute after:-bottom-1 after:right-0 ease-in-out duration-500
+             before:w-full before:h-[2px] before:bg-orange-500 before:absolute before:-top-1 before:right-0
+ 
+}

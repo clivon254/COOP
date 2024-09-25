@@ -115,6 +115,9 @@ export const getPosts = async (req,res,next) => {
         .sort({updatedAt:sortDirection})
         .skip(startIndex)
         .limit(limit)
+        .populate({
+            path:"userId"
+        })
 
         const totalPosts = await Post.countDocuments()
 
