@@ -14,7 +14,7 @@ export default function CommentSection({postId}) {
   const {User} = useSelector(state => state.user)
 
   const [formData, setFormData] = useState({
-    userId:User._id,
+    userId:User?._id,
     postId,
     comment:'',
   })
@@ -197,7 +197,7 @@ export default function CommentSection({postId}) {
                 to='/sign-in'
                 className="flex flex-col py-10" 
             >
-                <button className="flex items-center justify-center bg-white dark:bg-transparent teaxt-black dark:text-gray-500 px-4 rounded-full border">
+                <button className="flex items-center justify-center bg-white dark:bg-transparent text-black dark:text-gray-500 px-4 py-2 rounded-full font-semibold border border-slate-600 dark:border-slate-300">
                     sign in to comment
                 </button>
             </Link>

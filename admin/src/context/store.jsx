@@ -26,7 +26,7 @@ export default function StoreContextProvider(props) {
 
     const [popularWriters, setPopularWriters] = useState([])
 
-    console.log(popularWriters)
+
 
     // fetchData
     const fetchData = async () => {

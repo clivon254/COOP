@@ -31,13 +31,12 @@ export default function EditPost() {
 
   const navigate = useNavigate()
 
-  const {postId} = useParams()
+  const {slug} = useParams()
 
   const [loader ,setLoader] = useState(false)
 
   const {User} = useSelector(state => state.user)
 
- 
 
   useEffect(() => {
 
@@ -47,7 +46,7 @@ export default function EditPost() {
       {
         setLoader(true)
 
-        const res = await axios.get(`/api/post/get-post/${postId}`)
+        const res = await axios.get(`/api/post/get-post/${slug}`)
 
         if(res.data.success)
         {
@@ -72,7 +71,7 @@ export default function EditPost() {
 
     fetchPost()
     
-  },[postId])
+  },[slug])
 
   // handleImageUpload 
   const handleUploadImage = async () => {
@@ -282,8 +281,21 @@ export default function EditPost() {
               type="submit"
               gradientDuoTone='purpleToPink'
               className='mt-5'
+              disabled={loading}
             >
-              Publish
+              {loading ?
+                (
+                  <>
+                    <div className="flex items-center">
+
+                      <Spinner className="mr-2"/> Loading ...
+
+                    </div>
+                  </>
+                )
+                :
+                ("Publish")
+              }
             </Button>
 
             {publishError && (

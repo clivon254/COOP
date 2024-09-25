@@ -136,7 +136,7 @@ export default function Posts() {
 
                                     <span className="">
 
-                                        <Link to={`/edit-post/${post._id}`}>
+                                        <Link to={`/edit-post/${post.slug}`}>
 
                                             <MdEdit size={20}/>
 

@@ -21,7 +21,7 @@ export default function WriterPage() {
 
   const {popularArticles, popularWriters} = useContext(StoreContext)
 
-  console.log(posts)
+ 
 
   useEffect(() => {
 
@@ -82,7 +82,7 @@ export default function WriterPage() {
 
           <div className="w-full h-full flex flex-col gap-y-5 md:gap-y-8 items-center justify-center">
 
-            <h2 className="text-4xl 2xl:text-5cl font-bold">{user.username}</h2>
+            <h2 className="text-4xl 2xl:text-5cl font-bold">{user?.username}</h2>
 
             <div className="flex gap-10">
 

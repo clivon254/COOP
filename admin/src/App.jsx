@@ -78,7 +78,7 @@ export default function App() {
 
                 <Route path="/add-post" element={<AddPost/>}/>
 
-                <Route path="/edit-post/:postId" element={<EditPost/>}/>
+                <Route path="/edit-post/:slug" element={<EditPost/>}/>
 
                 <Route path="/users" element={<Users/>}/> 
 

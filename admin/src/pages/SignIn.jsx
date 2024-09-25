@@ -11,9 +11,7 @@ import axios from "axios"
 import { StoreContext } from '../context/store'
 import {toast} from "sonner"
 import OAuth from '../components/OAuth'
-
-
- axios.create({withCredentials:true})
+import COOP from "../assets/COOP-IMG.png"
 
 
 export default function SignIn() {
@@ -86,10 +84,16 @@ export default function SignIn() {
 
       <div className="hidden md:flex flex-col gap-y-4 md:w-1/3 min-h-screen bg-black items-center justify-center">
 
+          <img 
+            src={COOP} 
+            alt="" 
+            className="" 
+          />
+
           <Logo />
 
           <span className="text-xl font-semibold text-white">
-            Welcome back!
+            Welcome back
           </span>
 
       </div>
