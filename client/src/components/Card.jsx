@@ -20,7 +20,7 @@ export default function Card({post}) {
             <img 
                src={post?.image}
                alt={post?.title}
-               className="object-cover w-full h-full rounded" 
+               className="object-cover w-full h-[300px] md:h-full rounded" 
             />
         </Link>
 

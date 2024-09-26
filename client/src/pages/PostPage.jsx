@@ -8,10 +8,13 @@ import CommentSection from '../components/CommentSection'
 import PopularPosts from '../components/PopularPosts'
 import { StoreContext } from '../context/store'
 import PopularWriter from '../components/PopularWriter'
+import { useSelector } from 'react-redux'
 
 export default function PostPage() {
 
-  const params = useParams()
+  const {User} = useSelector(state => state.user)
+
+  const {slug} = useParams()
 
   const [Loading, setLoading] = useState(false)
 
@@ -21,10 +24,14 @@ export default function PostPage() {
 
   const {popularArticles,popularWriters} = useContext(StoreContext)
 
+  const [form,setForm] = useState({
+    userId:User?._id
+  })
+
 
   useEffect(() => {
 
-    if(params.slug)
+    if(slug)
     {
       window.scrollTo({top:0 ,left:0 ,behavior:"smooth"})
     }
@@ -38,7 +45,7 @@ export default function PostPage() {
 
         setError(false)
 
-        const res = await axios.get(`/api/post/get-post/${params.slug}`)
+        const res = await axios.post(`/api/post/get-post/${slug}`,form)
 
         if(res.data.success)
         {
@@ -48,6 +55,7 @@ export default function PostPage() {
 
           setError(false)
         }
+
       }
       catch(error)
       {
@@ -60,7 +68,7 @@ export default function PostPage() {
     
     fetchPost()
 
-  },[params.slug])
+  },[slug])
 
   return (
 

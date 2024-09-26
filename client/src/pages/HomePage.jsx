@@ -20,7 +20,7 @@ export default function HomePage() {
 
   const randomIndex = Math.floor(Math.random() * posts.length);
 
- const CATEGORIES = [
+  const CATEGORIES = [
     {
       label: "Politics",
       color: "bg-[#e11d48]",
@@ -48,6 +48,7 @@ export default function HomePage() {
       icon: <BsCodeSlash />,
     },
   ];
+  
   return (
 
     <div className="w-full py-10 2xl:py-5">
@@ -59,9 +60,11 @@ export default function HomePage() {
         {/* categories */}
         <div className="mt-6 md:mt-0">
 
-          <p className="text-2xl font-semibold text-gray-600 dark:text-white"></p>
+          <p className="text-2xl font-semibold text-gray-600 dark:text-white">
+            Popular Categories
+          </p>
 
-          <div className="w-full flex flex-wrap py-10 gap-8">
+          <div className="w-full flex flex-wrap py-10 gap-3 sm:gap-5 md:gap-8">
               {CATEGORIES?.map((cat) => (
 
                 <Link 
@@ -82,7 +85,7 @@ export default function HomePage() {
         <div className="w-full flex flex-col md:flex-row gap-10 2xl:gap-20">
 
           {/* LEFT */}
-          <div className="w-full md:w-2/3 flex flex-col gap-y-8">
+          <div className="w-full md:w-2/3 flex flex-col gap-y-28 md:gap-y-14">
 
             {posts?.map((post,index) => (
 

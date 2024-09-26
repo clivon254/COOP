@@ -56,7 +56,7 @@ export default function OAuth() {
     <div>
 
         <button 
-            className="w-full flex flex-row-reverse justify-center items-center gap-4 bg-white dark:transparent text-black dark:text-white px-5 py-2.5 rounded-full border border-gray-300 font-semibold"
+            className="w-full flex flex-row-reverse justify-center items-center gap-4 bg-white dark:transparent text-black  px-5 py-2.5 rounded-full border border-gray-300 font-semibold"
             onClick={handleGoogleClick}
         >
             Sign in with Google <FcGoogle/>

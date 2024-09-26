@@ -11,7 +11,7 @@ const postRoute = express.Router()
 postRoute.post("/create-post",verifyToken, createPost)
 
 
-postRoute.get("/get-post/:slug",verifyToken, getPost)
+postRoute.post("/get-post/:slug", getPost)
 
 
 postRoute.get("/get-posts", getPosts)

@@ -23,26 +23,14 @@ export default function Stats({dt}) {
         {
             title:"TOTAL POST",
             icon:"post",
-            value:dt?.totalPostsAdmin,
+            value:dt?.totalPosts,
             diff:34
         },
         {
-            title:"TOTAL USERS",
+            title:"TOTAL FOLLOWERS",
             icon:"users",
-            value:dt?.totalUsersAdmin,
+            value:dt?.totalFollowers,
             diff:-13
-        },
-        {
-            title:"TOTAL VIEWS",
-            icon:"view",
-            value:dt?.totalVeiwsAdmin,
-            diff:18
-        },
-        {
-            title:"TOTAL WRITERS",
-            icon:"user",
-            value:dt?.totalWritersAdmin,
-            diff:-30
         }
     ]
 

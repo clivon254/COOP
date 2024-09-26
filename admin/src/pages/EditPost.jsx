@@ -46,7 +46,7 @@ export default function EditPost() {
       {
         setLoader(true)
 
-        const res = await axios.get(`/api/post/get-post/${slug}`)
+        const res = await axios.post(`/api/post/get-post/${slug}`)
 
         if(res.data.success)
         {
@@ -165,6 +165,8 @@ export default function EditPost() {
     catch(error)
     {
       setPublishError(error.message)
+
+      console.log(error.message)
 
       setloading(false)
     }

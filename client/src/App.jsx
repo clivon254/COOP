@@ -22,6 +22,9 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Search from './pages/Search'
 import Category from './pages/Category'
+import OnlyWriterPrivateRoute from './pages/OnlyWriterPrivateRoute'
+import Post from '../../server/model/postModel'
+import Analytics from './pages/Analytics'
 
 
 
@@ -65,15 +68,22 @@ export default function App() {
 
                 <Route path="/" element={<HomePage/>}/> 
 
-                <Route path="/dashboard" element={<Dashboard/>}/>
-
-                <Route path="/posts" element={<Posts/>}/>
-
                 <Route path="/profile" element={<Profile/>}/>
 
-                <Route path="/add-post" element={<AddPost/>}/>
+            
+                <Route  element={<OnlyWriterPrivateRoute/>}>
 
-                <Route path="/edit-post/:postId" element={<EditPost/>}/>
+                    <Route path="/edit-post/:slug" element={<EditPost/>}/>
+
+                    <Route path="/add-post" element={<AddPost/>}/>
+
+                    <Route path="/dashboard" element={<Dashboard/>}/>
+
+                    <Route path="/posts" element={<Post/>}/>
+
+                    <Route path="/analytics" element={<Analytics/>}/>
+
+                </Route>
 
                 <Route path="/about" element={<About/>}/>
 

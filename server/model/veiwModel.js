@@ -5,9 +5,9 @@ import mongoose from "mongoose"
 
 const veiwSchema = new mongoose.Schema(
     {
-        userId:[{type:mongoose.Schema.Types.ObjectId , ref:"User"}],
+        userId:{type:mongoose.Schema.Types.ObjectId , ref:"User"},
 
-        postId:[{type:mongoose.Schema.Types.ObjectId , ref:"Post"}],
+        postId:{type:mongoose.Schema.Types.ObjectId , ref:"Post"}
     },
     {timestamps:true}
 )

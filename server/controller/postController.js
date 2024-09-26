@@ -57,29 +57,37 @@ export const getPost = async (req,res,next) => {
     {
         const {slug} = req.params
 
-        const userId = req.user.id
+        const userId = req.body.userId
 
         const post = await Post.findOne({slug})
                      .populate({
                         path:"userId",
                      })
 
-        const existingVeiw = await Veiw.findOne({postId:post._id ,userId})
-        
-        if(!existingVeiw)
+        if(userId)
         {
-            const newVeiw = await Veiw.create({
-                userId:post?.userId,
-                post:post._id
-           })
+            const existingVeiw = await Veiw.findOne({postId:post._id ,userId})
 
-           post.veiw.push(newVeiw?._id)
+            if(!existingVeiw)
+            {
+                const newVeiw = await Veiw.create({
+                    userId,
+                    postId:post._id
+                })
+    
+                post.veiw.push(newVeiw?._id)
+    
+                await Post.findByIdAndUpdate(post._id ,post)
+            }
 
-           await Post.findByIdAndUpdate(post._id ,post)
+            res.status(200).json({success:true, post})
+
+        }
+        else
+        {
+            res.status(200).json({success:true, post})
         }
     
-
-       res.status(200).json({success:true, post})
 
     }
     catch(error)
@@ -275,7 +283,7 @@ export const stats = async (req,res,next) => {
         const totalFollowers = await Follower.find({writerId:userId}).countDocuments()
         
 
-        const last5followers = await User.findById(userId).populate({
+        const last5followering = await User.findById(userId).populate({
             path:"followers",
             options:{sort : {_id : -1}},
             perDocumentLimit: 5,
@@ -283,6 +291,16 @@ export const stats = async (req,res,next) => {
                 path:"followerId"
             }
         }) 
+
+        const last5followers = await User.findById(userId)
+        .populate({
+            path:"followers",
+            options:{sort : {_id : -1}},
+            perDocumentLimit: 5,
+            populate:{
+                path:"followerId"
+            }
+        })
 
         
         const last5posts = await Post.find({userId:userId}).limit(5).sort({_id: -1})

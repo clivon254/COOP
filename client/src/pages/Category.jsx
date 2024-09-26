@@ -5,6 +5,7 @@ import PopularPosts from '../components/PopularPosts'
 import PopularWriter from '../components/PopularWriter'
 import { StoreContext } from '../context/store'
 import axios from 'axios'
+import Card from '../components/Card'
 
 export default function Category() {
 
@@ -47,7 +48,7 @@ export default function Category() {
 
         <div className="py-5">
 
-            <h2 className="text-4xl 2xl:text-5xl font-semibold text-slate-800 dark:text-white">
+            <h2 className="text-4xl 2xl:text-5xl font-semibold text-slate-800 dark:text-white mb-10">
                 {query}
             </h2>
 
@@ -58,11 +59,23 @@ export default function Category() {
                     
                     {posts?.length === 0 ? 
                         (
-                            <div className="w-full h-full py-8 flex "></div>
+                            <div className="w-full h-full py-8 flex justify-center">
+
+                                <span className="text-lg text-slate-500">
+                                    No Posts available
+                                </span>
+
+                            </div>
                         ) 
                         :
                         (
-                            <></>
+                            <>
+                                {posts?.map((post) => (
+
+                                    <Card key={post?._id} post={post}/>
+
+                                ))}
+                            </>
                         )
                     }
 

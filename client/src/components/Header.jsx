@@ -210,7 +210,7 @@ return (
       <Drawer
         open={open}
         onClose={() => setOpen(false)}
-        className="md:hidden"
+        className="md:hidden z-[100]"
       >
         <Drawer.Header titleIcon={() => <></>}/>
 

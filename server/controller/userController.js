@@ -12,6 +12,14 @@ export const getUser = async (req,res,next) => {
     try
     {
         const user = await User.findById(userId)
+                            .populate({
+                                path:"followers",
+                                options:{sort : {_id : -1}},
+                                perDocumentLimit: 5,
+                                populate:{
+                                    path:"followerId"
+                                }
+                            })
 
         if(!user)
         {
@@ -89,7 +97,7 @@ export const followWiter = async (req,res,next) => {
         const writer = await User.findById(userId)
 
         const newFollower = await Follower.create({
-            followerId,
+            followerId:req.user.id,
             writerId:userId
         })
 
@@ -97,7 +105,7 @@ export const followWiter = async (req,res,next) => {
 
         await User.findByIdAndUpdate(userId, writer, {new:true})
 
-        res.status(201).json({success:true ,message:"You're now following writer" + writer?.username})
+        res.status(201).json({success:true ,message:`You're now following writer ${writer?.username}`})
 
     }
     catch(error)

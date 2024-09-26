@@ -134,7 +134,7 @@ export default function SignIn() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="rounded-full text-sm py-2"
+                    className="rounded-full text-sm py-2 dark:text-black"
                   />
 
                 </div>
@@ -149,7 +149,7 @@ export default function SignIn() {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="rounded-full text-sm py-2"
+                    className="rounded-full text-sm py-2 dark:text-black"
                   />
 
                 </div>

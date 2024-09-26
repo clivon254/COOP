@@ -152,13 +152,13 @@ export default function SignUp() {
                             name="username"
                             value={formData.username}
                             onChange={handleChange}
-                            className="rounded-full text-sm py-2"
+                            className="rounded-full text-sm py-2 dark:text-black"
                           />
 
                         </div>
 
                         {/* email */}
-                        <div className="flex flex-col gap-y-2">
+                        <div className="flex flex-col gap-y-2 ">
 
                           <Label value="email"/>
 
@@ -168,7 +168,7 @@ export default function SignUp() {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            className="rounded-full text-sm py-2"
+                            className="rounded-full text-sm py-2 dark:text-black"
                           />
 
                         </div>
@@ -184,7 +184,7 @@ export default function SignUp() {
                             name="password"
                             value={formData.password}
                             onChange={handleChange}
-                            className="rounded-full text-sm py-2"
+                            className="rounded-full text-sm py-2 dark:text-black"
                           />
 
                         </div>
