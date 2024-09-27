@@ -5,9 +5,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://coop-server.onrender.com/',
-        changeOrigin: true, // <--- Add this line
-        secure: true,
+        target: 'https://coop-server.onrender.com', // Remove trailing slash
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/,'')
       },
     },
   },
