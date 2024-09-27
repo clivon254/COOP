@@ -7,7 +7,7 @@ export default defineConfig({
     proxy:{
       '/api':{
         target:'https://coop-server.onrender.com/',
-        secure:false
+        secure:true
       },
     },
   },
