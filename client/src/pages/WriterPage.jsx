@@ -9,7 +9,7 @@ import PopularWriter from '../components/PopularWriter'
 import { StoreContext } from '../context/store'
 import Card from '../components/Card'
 import { useSelector } from 'react-redux'
-import { Button } from 'flowbite-react'
+import { Alert, Button } from 'flowbite-react'
 
 
 
@@ -23,14 +23,14 @@ export default function WriterPage() {
 
   const [posts ,setPosts] = useState([])
 
+  const [followUpdate, setFollowUpdate] = useState(null)
+
   const {popularArticles, popularWriters} = useContext(StoreContext)
 
  const followerIds = user?.followers?.map((f) => f?.followerId?._id)
 
-  console.log(followerIds)
-
-  useEffect(() => {
-
+ 
+    // fetchUser
     const fetchUser = async () => {
 
       try
@@ -49,6 +49,7 @@ export default function WriterPage() {
 
     }
 
+    // fetchPost
     const fetchPosts = async () => {
 
       try
@@ -68,11 +69,67 @@ export default function WriterPage() {
 
     }
 
+
+   useEffect(() => {
+
     fetchUser()
 
     fetchPosts()
 
   },[writerId])
+
+
+  // handleFollow
+  const handleFollow = async () => {
+
+    try
+    {
+      
+      console.log('hey')
+
+      const res = await axios.post(`/api/user/follow-writer/${user._id}`)
+
+      if(res.data.success)
+      {
+        setFollowUpdate(res.data.message)
+
+        fetchUser()
+      }
+      else{
+        console.log(res.data.message)
+      }
+
+    }
+    catch(error)
+    {
+      console.log(error.message)
+    }
+
+  }
+
+  // handleUnFollow 
+  const handleUnFollow = async () => {
+
+    try
+    {
+
+      const res = await axios.post(`/api/user/unfollow-writer/${user._id}`)
+
+      if(res.data.success)
+      {
+        setFollowUpdate(res.data.message)
+
+        fetchUser()
+      }
+
+    }
+    catch(error)
+    {
+      console.log(error.message)
+    }
+
+  }
+
 
   return (
 
@@ -123,8 +180,9 @@ export default function WriterPage() {
                       <Button
                           gradientMonochrome="failure"
                           pill
+                          onClick={handleFollow}
                       >
-                        Following
+                        Follow
                       </Button>
                     ) 
                     :
@@ -132,8 +190,9 @@ export default function WriterPage() {
                       <Button
                         gradientMonochrome="failure"
                         pill
+                        onClick={handleUnFollow}
                       >
-                        Follow
+                        Following
                       </Button>
                     )
                     }
@@ -141,6 +200,14 @@ export default function WriterPage() {
 
               )}
 
+            </div>
+
+            <div className="">
+              {followUpdate && (
+
+                <Alert>{followUpdate}</Alert>
+
+              )}
             </div>
 
           </div>
