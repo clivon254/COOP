@@ -1,52 +1,57 @@
 
 
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { StoreContext } from '../context/store'
 
 export default function PopularPosts({posts}) {
 
-  const Card = ({post}) => {
+    const {Loading, setLoading} = useContext(StoreContext)
 
-    return(
+    const [loader, setLoader] = useState([{},{},{},{}])
 
-        <div className="flex gap-2 items-center">
+    const Card = ({post}) => {
 
-            <img 
-                src={post?.image}
-                alt={post?.userId?.username} 
-                className="w-12 h-12 rounded-full " 
-            />
+        return(
 
-            <div className="w-full flex flex-col gap-1">
+            <div className="flex gap-2 items-center">
 
-                <span className="w-fit rounded-full px-2 py-0.5  text-[12px] 2xl:text-sm">
-                    {post?.category}
-                </span>
+                <img 
+                    src={post?.image}
+                    alt={post?.userId?.username} 
+                    className="w-12 h-12 rounded-full " 
+                />
 
-                <Link
-                    to={`/post/${post?.slug}`}
-                    className="text-black dark:text-white font-semibold"
-                >
-                    {post?.title}
-                </Link>
+                <div className="w-full flex flex-col gap-1">
 
-                <div className="flex gap-2 text-sm">
-
-                    <span className="font-medium">{post?.userId?.name}</span>
-
-                    <span className="text-gray-500">
-                        {new Date(post?.createdAt).toDateString()}
+                    <span className="w-fit rounded-full px-2 py-0.5  text-[12px] 2xl:text-sm font-bold">
+                        {post?.category}
                     </span>
+
+                    <Link
+                        to={`/post/${post?.slug}`}
+                        className="text-black dark:text-white font-semibold"
+                    >
+                        {post?.title}
+                    </Link>
+
+                    <div className="flex gap-2 text-sm">
+
+                        <span className="font-medium">{post?.userId?.name}</span>
+
+                        <span className="text-gray-500">
+                            {new Date(post?.createdAt).toDateString()}
+                        </span>
+
+                    </div>
 
                 </div>
 
             </div>
 
-        </div>
-
-    )
-    
-  }
+        )
+        
+    }
 
   return (
 
@@ -56,11 +61,44 @@ export default function PopularPosts({posts}) {
             Popular Articles
         </p>
 
-        {posts?.map((post, id) => (
+        <div className="flex flex-col gap-y-3">
 
-            <Card post={post} key={id}/>
-            
-        ))}
+            {!Loading && (
+                <>
+                    {posts?.map((post, id) => (
+
+                        <Card post={post} key={id}/>
+                        
+                    ))}
+                </>
+            )}
+
+            {Loading && (
+                <>
+                    {loader?.map((writer, id) => (
+
+                        <div
+                            key={id}
+                            className="flex gap-2 items-center w-full animate-pulse"
+                        >
+
+                            <span  className="w-12 h-12  rounded-full object-cover bg-gray-300"/>
+
+                            <div className="flex flex-col gap-1">
+
+                                <span className=" h-3 w-32 rounded-full bg-gray-300"/>
+                            
+                                <span className=" h-3 w-32 rounded-full bg-gray-300"/>
+
+                            </div>
+
+                        </div>
+                    ))}
+                </>
+            )}
+
+        </div>
+        
 
     </div>
 

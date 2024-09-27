@@ -86,7 +86,7 @@ export default function Header() {
 return (
     <>
 
-      <Navbar className={`border-b py-5 dark:bg-black ${isSticky ? "sticky top-0":""}`}>
+      <Navbar className={`border-b border-slate-500 dark:border-slate-200 py-5 dark:bg-black ${isSticky ? "sticky top-0":""}`}>
 
         <div className="md:hidden">
           {
@@ -129,19 +129,66 @@ return (
 
         </div>
 
-        <div className="flex items-center order-2 gap-x-2">
+        <div className="flex items-center order-2 gap-x-2 ">
           
-        <button 
-          className="w-12 h-12 rounded-full hidden md:flex justify-center items-center border"
-          onClick={() => dispatch(toggleTheme())}
-        >
-          {
-            themes === 'light' ?
-              <MdDarkMode />
-                :
-              <MdLightMode/>
-          }
-        </button>
+
+          {User?.accountType === "writer" && (
+
+            <div className="hidden md:block">
+
+              <Dropdown
+                arrowIcon={false}
+                inline
+                label={
+                  <Button
+                    gradientDuoTone="purpleToBlue"
+                    pill
+                  >
+                    writer
+                  </Button>
+                }
+              >
+                <Link to="/dashboard">
+
+                        <Dropdown.Item>Dashboard</Dropdown.Item>
+
+                </Link>
+
+                <Link to="/posts">
+
+                        <Dropdown.Item>Posts</Dropdown.Item>
+
+                </Link>
+
+                <Link to="/add-post">
+
+                        <Dropdown.Item>Add Post</Dropdown.Item>
+
+                </Link>
+
+                <Link to="/analytics">
+
+                        <Dropdown.Item>Analytics</Dropdown.Item>
+
+                </Link>
+
+              </Dropdown>
+
+            </div>
+
+          )}
+
+          <button 
+            className="w-8 h-8 rounded-full hidden md:flex justify-center items-center border"
+            onClick={() => dispatch(toggleTheme())}
+          >
+            {
+              themes === 'light' ?
+                <MdDarkMode />
+                  :
+                <MdLightMode/>
+            }
+          </button>
 
           {User ? 
             (
@@ -170,7 +217,7 @@ return (
 
                   </Link>
 
-                  {User.accountType === "writer" && (
+                  {User?.accountType === "writer" && (
 
                     <Link to="/dashboard">
 

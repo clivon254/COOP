@@ -117,15 +117,17 @@ export default function PostPage() {
                 {post?.title}
               </h1>
 
-              <div className="w-full flex item-center">
+              <div className="w-full flex items-center">
 
-                <span className="flex-1 text-rose font-semibold text-slate-800 dark:text-white">
+                <span className="flex-1 text-xl text-rose font-semibold text-slate-800 dark:text-white flex flex-col">
+                  <span className="text-rose-600 text-xs">category</span>
                   {post?.category}
+                  
                 </span>
 
                 <span className="flex flex-1 items-baseline text-2xl font-medium text-slate-700 dark:text-gray-400">
                   {post?.veiw?.length}
-                  <span className="text-base text-rose-600">Views</span>
+                  <span className="text-base text-rose-600 ml-2">Views</span>
                 </span>
 
               </div>
@@ -154,11 +156,15 @@ export default function PostPage() {
 
             </div>
 
-            <img 
-              src={post?.image}
-              alt={post?.title}
-              className="w-full md:w-1/2 h-auto md:h-[360px] 2xl:h-[460px] rounded object-contain" 
-            />
+            <div className="w-full md:w-1/2 bg-red-500">
+
+              <img 
+                src={post?.image}
+                alt={post?.title}
+                className="w-full  h-auto md:h-[360px] 2xl:h-[460px] rounded object-cover" 
+              />
+
+            </div>
 
           </div>
 

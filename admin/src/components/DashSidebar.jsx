@@ -4,7 +4,7 @@ import { Sidebar } from 'flowbite-react'
 import React, { useContext, useState } from 'react'
 import { StoreContext } from '../context/store'
 import { Link } from 'react-router-dom'
-import { HiChartPie, HiDatabase, HiDocumentAdd } from "react-icons/hi"
+import { HiChartPie, HiDatabase, HiDocumentAdd,HiOutlineBookOpen } from "react-icons/hi"
 
 export default function DashSidebar() {
 
@@ -59,7 +59,7 @@ export default function DashSidebar() {
                   <Sidebar.Item
                     active={window.location.pathname === '/posts'}
                     as="div"
-                    icon={HiChartPie}
+                    icon={HiOutlineBookOpen}
                   >
                    Posts
                   </Sidebar.Item>

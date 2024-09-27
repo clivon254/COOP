@@ -8,10 +8,14 @@ import PopularPosts from '../components/PopularPosts'
 import PopularWriter from '../components/PopularWriter'
 import { StoreContext } from '../context/store'
 import Card from '../components/Card'
+import { useSelector } from 'react-redux'
+import { Button } from 'flowbite-react'
 
 
 
 export default function WriterPage() {
+
+  const {User} = useSelector(state => state.user)
 
   const {writerId} = useParams()
 
@@ -21,7 +25,9 @@ export default function WriterPage() {
 
   const {popularArticles, popularWriters} = useContext(StoreContext)
 
- 
+ const followerIds = user?.followers?.map((f) => f?.followerId?._id)
+
+  console.log(followerIds)
 
   useEffect(() => {
 
@@ -108,8 +114,32 @@ export default function WriterPage() {
 
               </div>
 
-              {/* follow button */}
-              <div className=""></div>
+              
+              {User && (
+
+                <div className="">
+                  {!followerIds?.includes(User?._id) ? 
+                    (
+                      <Button
+                          gradientMonochrome="failure"
+                          pill
+                      >
+                        Following
+                      </Button>
+                    ) 
+                    :
+                    (
+                      <Button
+                        gradientMonochrome="failure"
+                        pill
+                      >
+                        Follow
+                      </Button>
+                    )
+                    }
+                </div>
+
+              )}
 
             </div>
 

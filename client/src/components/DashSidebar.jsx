@@ -5,7 +5,7 @@ import React from 'react'
 import {Sidebar} from "flowbite-react"
 import { useContext } from 'react'
 import { StoreContext } from '../context/store'
-import {HiHome,HiSearch,HiPhone,HiAdjustments} from "react-icons/hi"
+import {HiHome,HiSearch,HiPhone,HiAdjustments,HiChartPie,HiDocumentAdd,HiDatabase,HiOutlineBookmark} from "react-icons/hi"
 import {MdDarkMode,MdLightMode} from "react-icons/md"
 import { toggleTheme } from '../redux/theme/themeSlice'
 import {useDispatch,useSelector} from "react-redux"
@@ -17,6 +17,8 @@ export default function DashSidebar() {
   const {open,setOpen} = useContext(StoreContext)
   
   const {themes} = useSelector(state => state.theme)
+
+  const {User} = useSelector(state => state.user)
 
   const dispatch = useDispatch()
 
@@ -83,6 +85,78 @@ export default function DashSidebar() {
                     </Sidebar.Item>
                     
                 </Link>
+
+                {User?.accountType === "writer" && (
+
+                    <Link 
+                        to="/dashboard"
+                        onClick={() => setOpen(false)}
+                    >
+
+                        <Sidebar.Item
+                            active={window.location.pathname === '/dashboard'}
+                            as="div"
+                            icon={HiChartPie}
+                        >
+                            Dashboard
+                        </Sidebar.Item>
+                    
+                   </Link>
+                 )}
+
+                {User?.accountType === "writer" && (
+
+                    <Link 
+                        to="/posts"
+                        onClick={() => setOpen(false)}
+                    >
+
+                        <Sidebar.Item
+                            active={window.location.pathname === '/posts'}
+                            as="div"
+                            icon={HiOutlineBookmark}
+                        >
+                            Posts
+                        </Sidebar.Item>
+                    
+                   </Link>
+                 )}
+
+                {User?.accountType === "writer" && (
+
+                    <Link 
+                        to="/add-post"
+                        onClick={() => setOpen(false)}
+                    >
+
+                        <Sidebar.Item
+                            active={window.location.pathname === '/add-post'}
+                            as="div"
+                            icon={HiDocumentAdd}
+                        >
+                            Add post
+                        </Sidebar.Item>
+                    
+                   </Link>
+                 )}
+
+                {User?.accountType === "writer" && (
+
+                    <Link 
+                        to="/analytics"
+                        onClick={() => setOpen(false)}
+                    >
+
+                        <Sidebar.Item
+                            active={window.location.pathname === '/analytics'}
+                            as="div"
+                            icon={HiDatabase}
+                        >
+                            Analytics
+                        </Sidebar.Item>
+                    
+                   </Link>
+                 )}
 
                 <Sidebar.Item
                     as="div"

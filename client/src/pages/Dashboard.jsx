@@ -41,7 +41,7 @@ export default function Dashboard() {
                 Recent followers
               </span>
 
-              <RecentFollowerTable data={data.last5followers.followers}/>
+              <RecentFollowerTable data={data?.last5followers?.followers}/>
 
           </div>
 
@@ -52,7 +52,7 @@ export default function Dashboard() {
                 Recent Post
               </span>
 
-              <RecentPostTable data={data.last5posts}/>
+              <RecentPostTable data={data?.last5posts}/>
 
           </div>
 

@@ -55,7 +55,7 @@ export default function Header() {
 
     <>
 
-        <Navbar className="py-3 border-b dark:border-gray-300 dark:bg-black">
+        <Navbar className="py-3 border-b dark:border-slate-800 dark:bg-black shadow-md">
 
             <div className="md:hidden">
                 {
