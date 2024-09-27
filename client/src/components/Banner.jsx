@@ -9,13 +9,6 @@ import {useGSAP} from "@gsap/react"
 export default function Banner({post,Loading}) {
 
     useGSAP(() => {
-
-        gsap.to('#hero',
-            {
-                opacity:100,
-                duration: 1.5,
-            }
-        )
     })
 
   return (
@@ -23,6 +16,7 @@ export default function Banner({post,Loading}) {
     <div className="w-full mb-10 px-5 lg:px-10  2xl:px-20 ">
 
         {!Loading && (
+
             <div id="hero" className=" relative w-full h-[500px] 2xl:h-[600px] flex">
             
                 <Link 
