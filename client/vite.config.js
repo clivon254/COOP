@@ -6,7 +6,7 @@ export default defineConfig({
   server:{
     proxy:{
       '/api':{
-        target:'http://localhost:800',
+        target:'https://coop-server.onrender.com/',
         secure:false
       },
     },
