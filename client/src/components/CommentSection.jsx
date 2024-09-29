@@ -11,9 +11,12 @@ import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import Comments from './Comments'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
+import { useContext } from 'react'
+import { StoreContext } from '../context/store'
 
 export default function CommentSection({postId}) {
 
+  const {url} = useContext(StoreContext)
   const {User} = useSelector(state => state.user)
 
   const [formData, setFormData] = useState({
@@ -48,7 +51,7 @@ export default function CommentSection({postId}) {
     {
         setLoading(true)
 
-        const res = await axios.post('/api/comment/create-comment',formData)
+        const res = await axios.post(url + '/api/comment/create-comment',formData,{withCredentials:true})
 
         if(res.data.success)
         {
@@ -70,7 +73,7 @@ export default function CommentSection({postId}) {
 
     try
      {
-      const res = await axios.get(`/api/comment/get-postcomment/${postId}`)
+      const res = await axios.get(url + `/api/comment/get-postcomment/${postId}`)
 
       if(res.data.success)
       {
@@ -101,10 +104,11 @@ export default function CommentSection({postId}) {
         return
       }
 
-      const res = await axios.post(`/api/comment/like-comment/${commentId}`)
+      const res = await axios.post(url +`/api/comment/like-comment/${commentId}`,{withCredentials:true})
 
       if(res.data.success)
       {
+
         setComments(
           comments.map((comment) =>
             comment._id === commentId
@@ -116,6 +120,7 @@ export default function CommentSection({postId}) {
               : comment
           )
         );
+
       }
     }
     catch(error)
@@ -148,7 +153,7 @@ export default function CommentSection({postId}) {
         return ;
       }
 
-      const res = await axios.delete(`/api/comment/delete-comment/${commentId}`)
+      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`,{withCredentials:true})
 
       if(res.data.success)
       {

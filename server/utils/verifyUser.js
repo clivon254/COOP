@@ -11,7 +11,7 @@ export const verifyToken = (req,res,next) => {
 
     if(!token)
     {
-        return next(errorHandler(403,"Forbiden"))
+        return next(errorHandler(403,"There is no token"))
     }
 
     jwt.verify(token ,process.env.JWT_SECRETE ,(err,user) => {

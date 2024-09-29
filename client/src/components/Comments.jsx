@@ -8,9 +8,13 @@ import moment from "moment"
 import axios from 'axios'
 import { FaThumbsUp } from 'react-icons/fa'
 import { Button, Textarea, TextInput } from 'flowbite-react'
+import { useContext } from 'react'
+import { StoreContext } from '../context/store'
 
 export default function Comments({comment,onLike,onEdit,onDelete}) {
     
+    const {url} = useContext(StoreContext)
+
     const [user, setUser] = useState({})
 
     const [isEditing ,setIsEditing] = useState(false)
@@ -25,7 +29,7 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
 
             try
             {
-                const res = await axios.get(`/api/user/get-user/${comment.userId}`)
+                const res = await axios.get(url + `/api/user/get-user/${comment.userId}`,{withCredentials:true})
 
                 if(res.data.success)
                 {
@@ -56,7 +60,7 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
 
         try
         {
-            const res = await fetch(`/api/comment/editComment/${comment._id}`,{
+            const res = await fetch(url + `/api/comment/editComment/${comment._id}`,{
                 method:'PUT',
                 headers:{
                     'Content-Type':'application'
@@ -64,7 +68,7 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
                 body:JSON.stringify({
                     content:editedContent
                 })
-            })
+            },{withCredentials:true})
 
             if(res.ok)
             {
