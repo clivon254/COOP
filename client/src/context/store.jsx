@@ -36,7 +36,7 @@ export default function StoreContextProvider(props) {
 
           setError(false)
 
-          const res = await axios.post(url + '/api/post/stats')
+          const res = await axios.post(url + '/api/post/stats',{withCredentials:true})
 
           if(res.data.success)
           {
@@ -67,7 +67,7 @@ export default function StoreContextProvider(props) {
 
         setError(false)
 
-        const res = await axios.get(url + "/api/post/get-posts")
+        const res = await axios.get(url + "/api/post/get-posts",{withCredentials:true})
 
         if(res.data.success)
         {
