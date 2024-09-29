@@ -25,7 +25,7 @@ export default function WriterPage() {
 
   const [followUpdate, setFollowUpdate] = useState(null)
 
-  const {popularArticles, popularWriters} = useContext(StoreContext)
+  const {popularArticles, popularWriters,url} = useContext(StoreContext)
 
  const followerIds = user?.followers?.map((f) => f?.followerId?._id)
 
@@ -35,7 +35,7 @@ export default function WriterPage() {
 
       try
       {
-          const res = await axios.get(`/api/user/get-user/${writerId}`)
+          const res = await axios.get(url + `/api/user/get-user/${writerId}`)
 
           if(res.data.success)
           {
@@ -54,7 +54,7 @@ export default function WriterPage() {
 
       try
       {
-        const res = await axios.get(`/api/post/get-posts?userId=${writerId}`)
+        const res = await axios.get(url + `/api/post/get-posts?userId=${writerId}`)
 
         if(res.data.success)
         {
@@ -87,7 +87,7 @@ export default function WriterPage() {
       
       console.log('hey')
 
-      const res = await axios.post(`/api/user/follow-writer/${user._id}`)
+      const res = await axios.post(url + `/api/user/follow-writer/${user._id}`)
 
       if(res.data.success)
       {
@@ -113,7 +113,7 @@ export default function WriterPage() {
     try
     {
 
-      const res = await axios.post(`/api/user/unfollow-writer/${user._id}`)
+      const res = await axios.post(url + `/api/user/unfollow-writer/${user._id}`)
 
       if(res.data.success)
       {

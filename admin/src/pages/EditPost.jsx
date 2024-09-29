@@ -2,7 +2,7 @@
 
 
 
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -14,9 +14,12 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Alert, Button, FileInput, Select, Spinner, TextInput } from 'flowbite-react';
 import { useSelector } from 'react-redux';
+import { StoreContext } from '../context/store';
 
 export default function EditPost() {
 
+  const {url} = useContext(StoreContext)
+  
   const [loading, setloading] = useState(null)
   
   const [file,setFile] = useState(null)
@@ -46,7 +49,7 @@ export default function EditPost() {
       {
         setLoader(true)
 
-        const res = await axios.post(`/api/post/get-post/${slug}`)
+        const res = await axios.post(url + `/api/post/get-post/${slug}`)
 
         if(res.data.success)
         {
@@ -143,7 +146,7 @@ export default function EditPost() {
 
       setloading(true)
 
-      const res = await axios.put(`/api/post/update-post/${formData._id}/${User._id}`,formData)
+      const res = await axios.put(url + `/api/post/update-post/${formData._id}/${User._id}`,formData)
 
       if(res.data.success)
       {

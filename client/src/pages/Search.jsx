@@ -6,8 +6,12 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import Card from '../components/Card'
 import CardLoading from '../components/CardLoading'
+import { useContext } from 'react'
+import { StoreContext } from '../context/store'
 
 export default function Search() {
+
+  const {url} = useContext(StoreContext)
 
   const [sidebarData, setSidebardata] = useState({
     searchTerm:"",
@@ -57,7 +61,7 @@ export default function Search() {
 
         const searchQuery = urlParams.toString()
 
-        const res = await axios.get(`/api/post/get-posts?${searchQuery}`)
+        const res = await axios.get(url + `/api/post/get-posts?${searchQuery}`)
 
         if(res.data.success)
         {
@@ -134,40 +138,40 @@ export default function Search() {
 
   }
 
- // handleShowMore
- const handleShowMore = async () => {
+  // handleShowMore
+  const handleShowMore = async () => {
 
-  const numberOfPosts = posts.length
+    const numberOfPosts = posts.length
 
-  const startIndex = numberOfPosts;
+    const startIndex = numberOfPosts;
 
-  const urlParams = new URLSearchParams(location.search)
+    const urlParams = new URLSearchParams(location.search)
 
-  urlParams.set('startIndex', startIndex)
+    urlParams.set('startIndex', startIndex)
 
-  const searchQuery = urlParams.toString()
-  
-  try
-  {
-    const res = await axios.get(`/api/post/get-posts?${searchQuery}`)
-
-    if(res.data.success)
+    const searchQuery = urlParams.toString()
+    
+    try
     {
-      setPosts((prev) => [...prev,...res.data.posts])
+      const res = await axios.get(url +`/api/post/get-posts?${searchQuery}`)
 
-      if(res.data.posts.length < 9)
+      if(res.data.success)
       {
-        setShowMore(false)
+        setPosts((prev) => [...prev,...res.data.posts])
+
+        if(res.data.posts.length < 9)
+        {
+          setShowMore(false)
+        }
       }
+
+    }
+    catch(error)
+    {
+      console.log(error.message)
     }
 
   }
-  catch(error)
-  {
-    console.log(error.message)
-  }
-
-}
 
   return (
 

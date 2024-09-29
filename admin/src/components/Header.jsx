@@ -17,7 +17,7 @@ import DashSidebar from './DashSidebar'
 
 export default function Header() {
 
-    const {open,setOpen} = useContext(StoreContext)
+    const {open,setOpen,url} = useContext(StoreContext)
 
     const {User} = useSelector(state => state.user)
 
@@ -32,7 +32,7 @@ export default function Header() {
 
         try
         {
-            const res = await axios.post('/api/auth/sign-out')
+            const res = await axios.post(url + '/api/auth/sign-out',{},{withCredentials:true})
 
             if(res.data.success)
             {

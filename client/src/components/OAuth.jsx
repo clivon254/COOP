@@ -9,10 +9,14 @@ import { useNavigate } from 'react-router-dom'
 import { signInFailure, signInSuccess } from '../redux/user/userSlice'
 import axios from "axios"
 import { FcGoogle } from "react-icons/fc"
+import { useContext } from 'react'
+import { StoreContext } from '../context/store'
 
 
 
 export default function OAuth() {
+
+    const {url} = useContext(StoreContext)
 
     const auth = getAuth(app)
 
@@ -36,7 +40,7 @@ export default function OAuth() {
                 googlePhotoUrl:resultsFromGoogle.user.displayName
             }
 
-            const res = await axios.post('/api/auth/google', data)
+            const res = await axios.post(url + '/api/auth/google', data,{withCredentials:true})
 
             if(res.data.success)
             {

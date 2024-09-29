@@ -11,8 +11,12 @@ import { app } from '../firebase';
 import axios from 'axios';
 import { toast } from 'sonner';
 import { Alert, Button, FileInput, Select, TextInput } from 'flowbite-react';
+import { useContext } from 'react';
+import { StoreContext } from '../context/store';
 
 export default function AddPost() {
+
+  const {url} = useContext(StoreContext)
 
   const [loading, setloading] = useState(null)
   
@@ -98,7 +102,7 @@ export default function AddPost() {
 
       setloading(true)
 
-      const res = await axios.post("/api/post/create-post",formData)
+      const res = await axios.post(url + "/api/post/create-post",formData)
 
       if(res.data.success)
       {

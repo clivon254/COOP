@@ -25,7 +25,7 @@ export default function Header() {
 
   const {User} = useSelector(state => state.user)
 
-  const {open, setOpen} = useContext(StoreContext)
+  const {open, setOpen,url} = useContext(StoreContext)
 
   const navigate = useNavigate()
 
@@ -36,16 +36,16 @@ export default function Header() {
 
     try
     {
-        const res = await axios.post('/api/auth/sign-out')
+      const res = await axios.post(url + '/api/auth/sign-out',{},{withCredentials:true})
 
-        if(res.data.success)
+      if(res.data.success)
         {
             dispatch(signOutSuccess())
 
             toast.success('signed out successfully')
 
             navigate('/')
-        }
+      }
 
     }
     catch(error)

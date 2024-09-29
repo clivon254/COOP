@@ -52,7 +52,7 @@ export default function SignIn() {
 
       dispatch(signInStart())
 
-      const res = await axios.post("/api/auth/sign-in",formData)
+      const res = await axios.post(url + "/api/auth/sign-in",formData,{withCredentials:true})
 
       if(res.data.success)
       {

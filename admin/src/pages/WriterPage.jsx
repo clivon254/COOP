@@ -19,7 +19,7 @@ export default function WriterPage() {
 
   const [posts ,setPosts] = useState([])
 
-  const {popularArticles, popularWriters} = useContext(StoreContext)
+  const {popularArticles, popularWriters,url} = useContext(StoreContext)
 
  
 
@@ -29,7 +29,7 @@ export default function WriterPage() {
 
       try
       {
-          const res = await axios.get(`/api/user/get-user/${writerId}`)
+          const res = await axios.get(url + `/api/user/get-user/${writerId}`)
 
           if(res.data.success)
           {
@@ -47,7 +47,7 @@ export default function WriterPage() {
 
       try
       {
-        const res = await axios.get(`/api/post/get-posts?userId=${writerId}`)
+        const res = await axios.get(url + `/api/post/get-posts?userId=${writerId}`)
 
         if(res.data.success)
         {

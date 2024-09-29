@@ -17,7 +17,7 @@ export default function Posts() {
 
   const {User} = useSelector(state => state.user)
 
-  const {showMore,setShowMore,handleShowMore,Loading,setLoading,setError} = useContext(StoreContext)
+  const {showMore,setShowMore,handleShowMore,Loading,setLoading,setError,url} = useContext(StoreContext)
 
   const [postUser ,setPostUser] = useState([])
 
@@ -34,7 +34,7 @@ export default function Posts() {
 
       setError(false)
 
-      const res = await axios.get(`/api/post/get-posts?userId=${User._id}`)
+      const res = await axios.get(url + `/api/post/get-posts?userId=${User._id}`)
 
       if(res.data.success)
       {

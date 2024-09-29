@@ -17,7 +17,7 @@ export default function Posts() {
 
   const {User} = useSelector(state => state.user)
 
-  const {posts,setPosts,showMore,setShowMore,handleShowMore,Loading} = useContext(StoreContext)
+  const {posts,setPosts,showMore,setShowMore,handleShowMore,Loading,url} = useContext(StoreContext)
 
   const [showModal, setShowModal] = useState(false)
 
@@ -28,7 +28,7 @@ export default function Posts() {
 
     try
     {
-      const res = await axios.delete(`/api/post/delete-post/${postIdToDelete}/${User._id}`)
+      const res = await axios.delete(url + `/api/post/delete-post/${postIdToDelete}/${User._id}`)
 
       if(res.data.success)
       {

@@ -1,6 +1,6 @@
 
 
-import React, { useRef, useState ,useEffect} from 'react'
+import React, { useRef, useState ,useEffect, useContext} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 import { deleteUserFailure, deleteUserSuccess, signOutSuccess, updateUserFailure, updateUserStart,updateUserSuccess } from '../redux/user/userSlice'
@@ -10,9 +10,12 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Alert, Button, Modal, TextInput } from 'flowbite-react'
 import { app } from '../firebase'
+import { StoreContext } from '../context/store'
 
 
 export default function Profile() {
+
+    const {url} = useContext(StoreContext)
 
     const {User ,error ,loading} = useSelector(state => state.user)
 
@@ -142,7 +145,7 @@ export default function Profile() {
         {
             dispatch(updateUserStart())
 
-            const res = await axios.put(`/api/user/update-user/${User._id}`,formData)
+            const res = await axios.put(url + `/api/user/update-user/${User._id}`,formData)
 
             if(res.data.success)
             {
@@ -167,7 +170,7 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.delete(`/api/user/delete/${User._id}`)
+            const res = await axios.delete(url + `/api/user/delete/${User._id}`)
 
             if(res.data.success)
             {
@@ -190,7 +193,7 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.post("/api/auth/sign-out")
+            const res = await axios.post(url + "/api/auth/sign-out",{},{withCredentials:true})
 
             if(res.data.success)
             {

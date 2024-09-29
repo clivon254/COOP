@@ -8,7 +8,7 @@ export const StoreContext = createContext(null)
 
 export default function StoreContextProvider(props) {
 
-    const url = "http://localhost:800"
+    const url = "https://coop-server.onrender.com"
 
     const [open ,setOpen] = useState(false)
 
@@ -37,7 +37,7 @@ export default function StoreContextProvider(props) {
 
           setError(false)
 
-          const res = await axios.post('/api/post/stats')
+          const res = await axios.post(url + '/api/post/stats')
 
           if(res.data.success)
           {
@@ -68,7 +68,7 @@ export default function StoreContextProvider(props) {
 
         setError(false)
 
-        const res = await axios.get("/api/post/get-posts")
+        const res = await axios.get(url +"/api/post/get-posts")
 
         if(res.data.success)
         {
@@ -110,7 +110,7 @@ export default function StoreContextProvider(props) {
 
       try
       {
-        const res = await axios.get(`/api/post/get-posts?starterIndex=${startIndex}`)
+        const res = await axios.get(url + `/api/post/get-posts?starterIndex=${startIndex}`)
 
         if(res.data.success)
         {
@@ -134,7 +134,7 @@ export default function StoreContextProvider(props) {
 
       try
       {
-        const res = await axios.post('/api/post/popular-content')
+        const res = await axios.post(url + '/api/post/popular-content')
 
         if(res.data.success)
         {

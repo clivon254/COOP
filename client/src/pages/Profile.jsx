@@ -10,11 +10,15 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Alert, Button, Modal, TextInput } from 'flowbite-react'
 import { app } from '../firebase'
+import { useContext } from 'react'
+import { StoreContext } from '../context/store'
 
 
 export default function Profile() {
 
     const {User ,error ,loading} = useSelector(state => state.user)
+
+    const {url} = useContext(StoreContext)
 
     const [imageFile ,setImageFile] = useState(null)
 
@@ -142,7 +146,7 @@ export default function Profile() {
         {
             dispatch(updateUserStart())
 
-            const res = await axios.put(`/api/user/update-user/${User._id}`,formData)
+            const res = await axios.put(url +`/api/user/update-user/${User._id}`,formData)
 
             if(res.data.success)
             {
@@ -167,7 +171,7 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.delete(`/api/user/delete/${User._id}`)
+            const res = await axios.delete(url + `/api/user/delete/${User._id}`)
 
             if(res.data.success)
             {
@@ -190,7 +194,7 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.post("/api/auth/sign-out")
+            const res = await axios.post(url + "/api/auth/sign-out",{},{withCredentials:true})
 
             if(res.data.success)
             {

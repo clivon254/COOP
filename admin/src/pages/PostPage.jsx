@@ -19,7 +19,7 @@ export default function PostPage() {
 
   const [post , setPost] = useState(null)
 
-  const {popularArticles,popularWriters,User} = useContext(StoreContext)
+  const {popularArticles,popularWriters,User,url} = useContext(StoreContext)
 
   const [form,setForm] = useState({
     userId:User?._id
@@ -41,7 +41,7 @@ export default function PostPage() {
 
         setError(false)
 
-        const res = await axios.post(`/api/post/get-post/${params.slug}`,form)
+        const res = await axios.post(url + `/api/post/get-post/${params.slug}`,form)
 
         if(res.data.success)
         {

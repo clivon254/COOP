@@ -11,7 +11,7 @@ export default function Category() {
 
     const query = new URLSearchParams(window.location.search).get("category")
 
-    const {popularArticles,popularWriters} = useContext(StoreContext)
+    const {popularArticles,popularWriters,url} = useContext(StoreContext)
 
     const [posts,setPosts] = useState([])
     
@@ -24,7 +24,7 @@ export default function Category() {
 
             try
             {
-                const res = await axios.get(`/api/post/get-posts?category=${query}`)
+                const res = await axios.get(url + `/api/post/get-posts?category=${query}`)
 
                 if(res.data.success)
                 {
