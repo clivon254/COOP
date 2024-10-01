@@ -13,7 +13,7 @@ export const signup = async  (req,res,next) => {
 
     if(!username || !email || !password || username === '' || email === '' || password === '')
     {
-        next(errorHandler(400 ,'All feilds are required'))
+        return next(errorHandler(400 ,'All feilds are required'))
     }
 
     const hashedPassword = bcryptjs.hashSync(password, 10)
@@ -65,7 +65,7 @@ export const signin = async (req,res,next) => {
 
         const token = jwt.sign(
             {
-                id:validUser.id,
+                id:validUser._id,
                 isAdmin:validUser.isAdmin,
                 accountType:validUser.accountType
             },
@@ -99,7 +99,7 @@ export const google = async (req,res,next) => {
         {
             const token = jwt.sign(
                 {
-                    id:user.id,
+                    id:user._id,
                     isAdmin:user.isAdmin,
                     accountType:user.accountType
                 },

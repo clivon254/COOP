@@ -17,7 +17,7 @@ const PORT = process.env.PORT
 
 
 app.use(cors({
-    origin: ['https://coop-ul88.onrender.com', 'https://coop-ul88.onrender.com'],
+    origin: ['https://coop-ul88.onrender.com', 'https://coop-admin.onrender.com'],
     credentials: true
   }))
 

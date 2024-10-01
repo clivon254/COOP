@@ -5,7 +5,7 @@ import { errorHandler } from "../utils/error.js"
 
 
 
-export const getUser = async (req,res,next) => {
+export const getUser = async (req,res,next) => { 
 
     const {userId} = req.params
 
