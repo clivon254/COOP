@@ -17,7 +17,7 @@ const PORT = process.env.PORT
 
 
 app.use(cors({
-    origin: ['https://coop-ul88.onrender.com', 'https://coop-admin.onrender.com'],
+    origin: ['https://coop-ul88.onrender.com', 'https://coop-ul88.onrender.com'],
     credentials: true
   }))
 
@@ -28,7 +28,7 @@ app.use(cookieParser())
 
 // db connection
 mongoose.connect(process.env.MONGO_URL)
-.then(() => console.log("DB Connected"))
+.then(() => console.log("DB CONNECTED"))
 .catch((err) => console.log(err))
 
 
