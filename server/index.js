@@ -20,8 +20,11 @@ app.use(cookieParser())
 
 app.use(cors({
     origin: ['https://coop-ul88.onrender.com', 'https://coop-admin.onrender.com'],
-    credentials: true
-  }))
+    credentials: true, // Allow credentials (cookies) to be sent
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    headers: ['Content-Type', 'Authorization', 'Set-Cookie'],
+    exposedHeaders: ['Set-Cookie'] // Expose the Set-Cookie header to the client
+}));
 
 app.use(express.json())
 
