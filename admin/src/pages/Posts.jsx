@@ -17,20 +17,19 @@ export default function Posts() {
 
   const {User} = useSelector(state => state.user)
 
-  const {posts,setPosts,showMore,setShowMore,handleShowMore,Loading,url} = useContext(StoreContext)
+  const {posts,setPosts,showMore,setShowMore,handleShowMore,Loading,url,token} = useContext(StoreContext)
 
   const [showModal, setShowModal] = useState(false)
 
   const [postIdToDelete, setPostIdToDelete] = useState(null)
 
-  axios.defaults.withCredentials = true
 
   // handleDelete
   const handleDeletePost = async () => {
 
     try
     {
-      const res = await axios.delete(url + `/api/post/delete-post/${postIdToDelete}/${User._id}`)
+      const res = await axios.delete(url + `/api/post/delete-post/${postIdToDelete}/${User._id}`,{headers:{token}})
 
       if(res.data.success)
       {
@@ -38,7 +37,7 @@ export default function Posts() {
             prev.filter((post) => post._id !== postIdToDelete)
         )
 
-        setShowModal(false)
+        setShowModal(false) 
 
         toast.success('post deleted successfully')
       }

@@ -64,7 +64,7 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
             const res = await fetch(url + `/api/comment/editComment/${comment._id}`,{
                 method:'PUT',
                 headers:{
-                    'Content-Type':'application'
+                    token
                 },
                 body:JSON.stringify({
                     content:editedContent

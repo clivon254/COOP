@@ -25,11 +25,10 @@ export default function WriterPage() {
 
   const [followUpdate, setFollowUpdate] = useState(null)
 
-  const {popularArticles, popularWriters,url} = useContext(StoreContext)
+  const {popularArticles, popularWriters,url,token} = useContext(StoreContext)
 
  const followerIds = user?.followers?.map((f) => f?.followerId?._id)
 
-   axios.defaults.withCredentials = true 
 
     // fetchUser
     const fetchUser = async () => {
@@ -88,7 +87,7 @@ export default function WriterPage() {
       
       console.log('hey')
 
-      const res = await axios.post(url + `/api/user/follow-writer/${user._id}`)
+      const res = await axios.post(url + `/api/user/follow-writer/${user._id}`,{},{headers:{token}})
 
       if(res.data.success)
       {
@@ -114,7 +113,7 @@ export default function WriterPage() {
     try
     {
 
-      const res = await axios.post(url + `/api/user/unfollow-writer/${user._id}`)
+      const res = await axios.post(url + `/api/user/unfollow-writer/${user._id}`,{},{headers:{token}})
 
       if(res.data.success)
       {

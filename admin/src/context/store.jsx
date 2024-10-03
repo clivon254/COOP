@@ -10,6 +10,8 @@ export default function StoreContextProvider(props) {
 
     const url = "https://coop-server.onrender.com"
 
+    const [token, setToken] = useState("")
+
     const [open ,setOpen] = useState(false)
 
     const [Loading ,setLoading] = useState(false)
@@ -37,7 +39,7 @@ export default function StoreContextProvider(props) {
 
           setError(false)
 
-          const res = await axios.post(url + '/api/post/stats')
+          const res = await axios.post(url + '/api/post/stats',{},{headers:{token}})
 
           if(res.data.success)
           {
@@ -46,6 +48,10 @@ export default function StoreContextProvider(props) {
             setLoading(false)
 
             setError(false)
+          }
+          else
+          {
+            console.log("check the api")
           }
       }
       catch(error)
@@ -68,7 +74,7 @@ export default function StoreContextProvider(props) {
 
         setError(false)
 
-        const res = await axios.get(url +"/api/post/get-posts")
+        const res = await axios.get(url + "/api/post/get-posts")
 
         if(res.data.success)
         {
@@ -160,7 +166,21 @@ export default function StoreContextProvider(props) {
 
       fetchPopularArticles()
 
-    },[])
+      function loadData()
+      {
+
+        if(localStorage.getItem("token"))
+          {
+  
+            setToken(localStorage.getItem("token"))
+  
+          }
+      }
+
+      loadData()
+      
+
+    },[token])
 
     const contextValue = 
     {
@@ -181,7 +201,9 @@ export default function StoreContextProvider(props) {
       popularArticles,
       setPopularArticles,
       popularWriters,
-      setPopularWriters
+      setPopularWriters,
+      token,
+      setToken
     }
 
   return (

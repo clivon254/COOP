@@ -9,7 +9,7 @@ export const StoreContext = createContext(null)
 
 export default function StoreContextProvider(props) {
 
-    const url = "http://localhost:800"
+    const url = "https://coop-server.onrender.com"
 
     const [token, setToken] = useState("")
 

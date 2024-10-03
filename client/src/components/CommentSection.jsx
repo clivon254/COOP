@@ -147,7 +147,7 @@ export default function CommentSection({postId}) {
     try
     {
 
-      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`,{},{headers:{token}})
+      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`,{headers:{token}})
 
       if(res.data.success)
       {

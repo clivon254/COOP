@@ -18,7 +18,7 @@ import { StoreContext } from '../context/store';
 
 export default function EditPost() {
 
-  const {url} = useContext(StoreContext)
+  const {url,token} = useContext(StoreContext)
   
   const [loading, setloading] = useState(null)
   
@@ -40,7 +40,6 @@ export default function EditPost() {
 
   const {User} = useSelector(state => state.user)
 
-  axios.defaults.withCredentials = true
   
   useEffect(() => {
 
@@ -147,7 +146,7 @@ export default function EditPost() {
 
       setloading(true)
 
-      const res = await axios.put(url + `/api/post/update-post/${formData._id}/${User._id}`,formData)
+      const res = await axios.put(url + `/api/post/update-post/${formData._id}/${User._id}`,formData,{headers:{token}})
 
       if(res.data.success)
       {

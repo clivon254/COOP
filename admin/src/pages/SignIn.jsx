@@ -1,6 +1,7 @@
 
 
 import React, { useContext, useState } from 'react'
+import COOP from "../assets/COOP-IMG.png"
 import Logo from '../components/Logo'
 import Divider from '../components/Divider'
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react"
@@ -11,12 +12,13 @@ import axios from "axios"
 import { StoreContext } from '../context/store'
 import {toast} from "sonner"
 import OAuth from '../components/OAuth'
-import COOP from "../assets/COOP-IMG.png"
+
+
 
 
 export default function SignIn() {
 
-  const {url} = useContext(StoreContext)
+  const {url,token,setToken} = useContext(StoreContext)
 
   const [formData, setFormData] = useState({})
 
@@ -27,8 +29,7 @@ export default function SignIn() {
   const navigate = useNavigate()
 
   console.log(formData)
-
-  axios.defaults.withCredentials = true
+  
 
   // handleChange
   const handleChange = (e) => {
@@ -60,6 +61,10 @@ export default function SignIn() {
 
         toast.success("You have signed in sucessfully")
 
+        localStorage.setItem("token",res.data.token)
+
+        setToken(res.data.token)
+
         navigate('/')
       }
       else
@@ -87,15 +92,15 @@ export default function SignIn() {
       <div className="hidden md:flex flex-col gap-y-4 md:w-1/3 min-h-screen bg-black items-center justify-center">
 
           <img 
-            src={COOP} 
-            alt="" 
-            className="" 
+              src={COOP}
+              alt="" 
+              className="" 
           />
 
           <Logo />
 
-          <span className="text-xl font-semibold text-white">
-            Welcome back
+          <span className="text-2xl font-bold text-white">
+            Welcome 
           </span>
 
       </div>
@@ -134,7 +139,7 @@ export default function SignIn() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="rounded-full text-sm py-2"
+                    className="rounded-full text-sm py-2 dark:text-black"
                   />
 
                 </div>
@@ -149,7 +154,7 @@ export default function SignIn() {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    className="rounded-full text-sm py-2"
+                    className="rounded-full text-sm py-2 dark:text-black"
                   />
 
                 </div>
@@ -178,10 +183,10 @@ export default function SignIn() {
 
                 <div className="flex items-center justify-between text-gray-600 dark:text-gray-300">
 
-                  {/* <p className="text-xs font-semibold">
+                  <p className="text-xs font-semibold">
                     Don't have an account? 
                     <Link to='/sign-up' className="text-amber-800 font-medium ml-2 cursor-pointer">Sign up</Link>
-                  </p> */}
+                  </p>
 
                   <p className="text-xs font-semibold">
 
