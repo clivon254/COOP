@@ -30,8 +30,10 @@ export default function SignIn() {
 
   console.log(formData)
 
-  axios.defaults.withCredentials = true
-  axios.defaults.xhrFields = { withCredentials: true };
+  const axiosInstance = axios.create({
+    withCredentials: true,
+    xhrFields: { withCredentials: true },
+  });
   
 
   // handleChange
@@ -56,7 +58,7 @@ export default function SignIn() {
 
       dispatch(signInStart())
 
-      const res = await axios.post(url + "/api/auth/sign-in",formData)
+      const res = await axiosInstance.post(url + "/api/auth/sign-in",formData)
 
       if(res.data.success)
       {
