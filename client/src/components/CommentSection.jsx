@@ -2,8 +2,6 @@
 
 
 
-
-
 import axios from 'axios'
 import { Button, Modal, Textarea } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +14,8 @@ import { StoreContext } from '../context/store'
 
 export default function CommentSection({postId}) {
 
-  const {url} = useContext(StoreContext)
+  const {url,token} = useContext(StoreContext)
+
   const {User} = useSelector(state => state.user)
 
   const [formData, setFormData] = useState({
@@ -35,7 +34,6 @@ export default function CommentSection({postId}) {
 
   const navigate = useNavigate()
 
-  axios.defaults.withCredentials = true
 
 
   // handleSubmit
@@ -52,7 +50,7 @@ export default function CommentSection({postId}) {
     {
         setLoading(true)
 
-        const res = await axios.post(url + '/api/comment/create-comment',formData,{withCredentials:true})
+        const res = await axios.post(url + '/api/comment/create-comment',formData,{headers:{token}})
 
         if(res.data.success)
         {
@@ -106,7 +104,7 @@ export default function CommentSection({postId}) {
         return
       }
 
-      const res = await axios.post(url +`/api/comment/like-comment/${commentId}`)
+      const res = await axios.post(url +`/api/comment/like-comment/${commentId}`,{},{headers:{token}})
 
       if(res.data.success)
       {
@@ -148,14 +146,8 @@ export default function CommentSection({postId}) {
 
     try
     {
-      if(User)
-      {
-        navigate('/sign-in')
 
-        return ;
-      }
-
-      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`)
+      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`,{},{headers:{token}})
 
       if(res.data.success)
       {

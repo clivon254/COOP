@@ -74,12 +74,7 @@ export const signin = async (req,res,next) => {
 
         const {password:pass, ...rest} = validUser._doc 
 
-        res.status(200)
-            .cookie('access_token',token ,{
-                httpOnly :true ,
-                secure:true,
-            })
-            .json({success:true ,rest})
+        res.status(200).json({success:true ,rest ,token})
 
     }
     catch(error)
@@ -111,9 +106,7 @@ export const google = async (req,res,next) => {
     
             const {password:pass, ...rest} = user._doc 
     
-            res.status(200)
-                .cookie('access_token',token ,{httpOnly :true})
-                .json({success:true ,rest})
+            res.status(200).json({success:true ,rest, token})
         }
         else
         {
@@ -142,9 +135,7 @@ export const google = async (req,res,next) => {
     
             const {password:pass, ...rest} = newUser._doc 
     
-            res.status(200)
-                .cookie('access_token',token ,{httpOnly :true})
-                .json({success:true ,rest})
+            res.status(200).json({success:true ,rest ,token})
 
         }
 

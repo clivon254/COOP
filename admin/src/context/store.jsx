@@ -26,7 +26,6 @@ export default function StoreContextProvider(props) {
 
     const [popularWriters, setPopularWriters] = useState([])
 
-    axios.defaults.withCredentials = true
 
 
     // fetchData

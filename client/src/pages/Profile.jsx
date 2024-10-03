@@ -12,13 +12,14 @@ import { Alert, Button, Modal, TextInput } from 'flowbite-react'
 import { app } from '../firebase'
 import { useContext } from 'react'
 import { StoreContext } from '../context/store'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Profile() {
 
     const {User ,error ,loading} = useSelector(state => state.user)
 
-    const {url} = useContext(StoreContext)
+    const {url,token} = useContext(StoreContext)
 
     const [imageFile ,setImageFile] = useState(null)
 
@@ -43,8 +44,7 @@ export default function Profile() {
 
     const dispatch = useDispatch()
 
-    axios.defaults.withCredentials = true 
-    axios.defaults.xhrFields = { withCredentials: true };
+    const navigate = useNavigate()
 
 
     const handleImageChange = (e) => {
@@ -149,7 +149,7 @@ export default function Profile() {
         {
             dispatch(updateUserStart())
 
-            const res = await axios.put(url +`/api/user/update-user/${User._id}`,formData)
+            const res = await axios.put(url +`/api/user/update-user/${User._id}`,formData,{headers:{token}})
 
             if(res.data.success)
             {
@@ -197,16 +197,15 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.post(url + "/api/auth/sign-out",)
+            
+            dispatch(signOutSuccess())
 
-            if(res.data.success)
-            {
-                dispatch(signOutSuccess())
+            localStorage.removeItem('token')
 
-                toast.success("sign out successfully")
+            toast.success("sign out successfully") 
 
-                navigate('/landing-page')
-            }
+            navigate('/')
+           
         }
         catch(error)
         {

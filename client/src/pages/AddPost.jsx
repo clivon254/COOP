@@ -16,7 +16,7 @@ import { StoreContext } from '../context/store';
 
 export default function AddPost() {
 
-  const {url} = useContext(StoreContext)
+  const {url,token} = useContext(StoreContext)
 
   const [loading, setloading] = useState(null)
   
@@ -32,7 +32,6 @@ export default function AddPost() {
 
   const navigate = useNavigate()
 
-  axios.defaults.withCredentials = true
 
   // handleImageUpload 
   const handleUploadImage = async () => {
@@ -104,7 +103,7 @@ export default function AddPost() {
 
       setloading(true)
 
-      const res = await axios.post(url + "/api/post/create-post",formData)
+      const res = await axios.post(url + "/api/post/create-post",formData,{headers:{token}})
 
       if(res.data.success)
       {
@@ -137,6 +136,7 @@ export default function AddPost() {
 
     <div className="p-5 max-w-3xl mx-auto ">
 
+       
         <h1 className="text-3xl font-semibold text-center mb-7">Add Post</h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-y-4">
@@ -247,8 +247,6 @@ export default function AddPost() {
           )}
 
         </form>
-
-       
 
     </div>
 

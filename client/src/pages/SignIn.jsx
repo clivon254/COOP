@@ -18,7 +18,7 @@ import OAuth from '../components/OAuth'
 
 export default function SignIn() {
 
-  const {url} = useContext(StoreContext)
+  const {url,token,setToken} = useContext(StoreContext)
 
   const [formData, setFormData] = useState({})
 
@@ -29,11 +29,6 @@ export default function SignIn() {
   const navigate = useNavigate()
 
   console.log(formData)
-
-  const axiosInstance = axios.create({
-    withCredentials: true,
-    xhrFields: { withCredentials: true },
-  });
   
 
   // handleChange
@@ -58,13 +53,17 @@ export default function SignIn() {
 
       dispatch(signInStart())
 
-      const res = await axiosInstance.post(url + "/api/auth/sign-in",formData)
+      const res = await axios.post(url + "/api/auth/sign-in",formData)
 
       if(res.data.success)
       {
         dispatch(signInSuccess(res.data.rest))  
 
         toast.success("You have signed in sucessfully")
+
+        localStorage.setItem("token",res.data.token)
+
+        setToken(res.data.token)
 
         navigate('/')
       }

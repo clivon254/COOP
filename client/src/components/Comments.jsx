@@ -23,7 +23,6 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
 
     const {User} = useSelector(state => state.user)
 
-    axios.defaults.withCredentials = true
 
     useEffect(() => {
 
