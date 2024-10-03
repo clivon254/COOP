@@ -46,7 +46,7 @@ export default function Profile() {
     axios.defaults.withCredentials = true 
     axios.defaults.xhrFields = { withCredentials: true };
 
-    
+
     const handleImageChange = (e) => {
 
         const file = e.target.files[0]
@@ -197,7 +197,7 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.post(url + "/api/auth/sign-out",{})
+            const res = await axios.post(url + "/api/auth/sign-out",)
 
             if(res.data.success)
             {
