@@ -31,6 +31,8 @@ export default function SignIn() {
   console.log(formData)
 
   axios.defaults.withCredentials = true
+  axios.defaults.headers.common['Authorization'] = `Bearer ${cookie.get('access_token')}`;
+  
 
   // handleChange
   const handleChange = (e) => {
