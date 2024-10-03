@@ -148,7 +148,7 @@ export default function Profile() {
         {
             dispatch(updateUserStart())
 
-            const res = await axios.put(url +`/api/user/update-user/${User._id}`,formData)
+            const res = await axios.put(url +`/api/user/update-user/${User._id}`,formData,{withCredentials:true})
 
             if(res.data.success)
             {
