@@ -29,7 +29,8 @@ export default function WriterPage() {
 
  const followerIds = user?.followers?.map((f) => f?.followerId?._id)
 
- 
+   axios.defaults.withCredentials = true 
+
     // fetchUser
     const fetchUser = async () => {
 
@@ -202,13 +203,13 @@ export default function WriterPage() {
 
             </div>
 
-            <div className="">
+            {/* <div className="">
               {followUpdate && (
 
                 <Alert>{followUpdate}</Alert>
 
               )}
-            </div>
+            </div> */}
 
           </div>
 

@@ -28,6 +28,8 @@ export default function SignIn() {
 
   console.log(formData)
 
+  axios.defaults.withCredentials = true
+
   // handleChange
   const handleChange = (e) => {
 
@@ -50,7 +52,7 @@ export default function SignIn() {
 
       dispatch(signInStart())
 
-      const res = await axios.post(url + "/api/auth/sign-in",formData,{withCredentials:true})
+      const res = await axios.post(url + "/api/auth/sign-in",formData)
 
       if(res.data.success)
       {

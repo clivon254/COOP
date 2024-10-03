@@ -23,6 +23,8 @@ export default function Posts() {
 
   const [postIdToDelete, setPostIdToDelete] = useState(null)
 
+  axios.defaults.withCredentials = true
+
   // handleDelete
   const handleDeletePost = async () => {
 

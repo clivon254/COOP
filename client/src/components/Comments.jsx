@@ -23,13 +23,15 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
 
     const {User} = useSelector(state => state.user)
 
+    axios.defaults.withCredentials = true
+
     useEffect(() => {
 
         const getUser = async () => {
 
             try
             {
-                const res = await axios.get(url + `/api/user/get-user/${comment.userId}`,{withCredentials:true})
+                const res = await axios.get(url + `/api/user/get-user/${comment.userId}`)
 
                 if(res.data.success)
                 {
@@ -68,7 +70,7 @@ export default function Comments({comment,onLike,onEdit,onDelete}) {
                 body:JSON.stringify({
                     content:editedContent
                 })
-            },{withCredentials:true})
+            })
 
             if(res.ok)
             {

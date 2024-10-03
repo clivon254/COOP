@@ -32,6 +32,8 @@ export default function AddPost() {
 
   const navigate = useNavigate()
 
+  axios.defaults.withCredentials = true
+
   // handleImageUpload 
   const handleUploadImage = async () => {
 

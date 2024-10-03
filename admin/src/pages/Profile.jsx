@@ -41,6 +41,8 @@ export default function Profile() {
     const filePickerRef = useRef()
 
     const dispatch = useDispatch()
+
+    axios.defaults.withCredentials = true
     
 
     const handleImageChange = (e) => {
@@ -193,7 +195,7 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.post(url + "/api/auth/sign-out",{},{withCredentials:true})
+            const res = await axios.post(url + "/api/auth/sign-out")
 
             if(res.data.success)
             {

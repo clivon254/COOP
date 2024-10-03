@@ -16,6 +16,8 @@ const app = express()
 const PORT = process.env.PORT 
 
 
+app.use(cookieParser())
+
 app.use(cors({
     origin: ['https://coop-ul88.onrender.com', 'https://coop-admin.onrender.com'],
     credentials: true
@@ -23,7 +25,7 @@ app.use(cors({
 
 app.use(express.json())
 
-app.use(cookieParser())
+
 
 
 // db connection

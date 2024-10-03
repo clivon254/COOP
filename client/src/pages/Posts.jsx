@@ -25,6 +25,8 @@ export default function Posts() {
 
   const [postIdToDelete, setPostIdToDelete] = useState(null)
 
+  axios.defaults.withCredentials = true
+
   // fetchPosts
   const fetchUserPosts = async () => {
 
@@ -74,7 +76,7 @@ export default function Posts() {
 
     try
     {
-      const res = await axios.delete(`/api/post/delete-post/${postIdToDelete}/${User._id}`)
+      const res = await axios.delete(url + `/api/post/delete-post/${postIdToDelete}/${User._id}`)
 
       if(res.data.success)
       {

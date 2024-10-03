@@ -40,7 +40,8 @@ export default function EditPost() {
 
   const {User} = useSelector(state => state.user)
 
-
+  axios.defaults.withCredentials = true
+  
   useEffect(() => {
 
     const fetchPost = async () => {

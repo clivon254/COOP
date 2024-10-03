@@ -35,6 +35,7 @@ export default function CommentSection({postId}) {
 
   const navigate = useNavigate()
 
+  axios.defaults.withCredentials = true
 
 
   // handleSubmit
@@ -87,6 +88,7 @@ export default function CommentSection({postId}) {
     }
   }
 
+
   useEffect(() => {
 
     fetchComments()
@@ -104,7 +106,7 @@ export default function CommentSection({postId}) {
         return
       }
 
-      const res = await axios.post(url +`/api/comment/like-comment/${commentId}`,{withCredentials:true})
+      const res = await axios.post(url +`/api/comment/like-comment/${commentId}`)
 
       if(res.data.success)
       {
@@ -153,7 +155,7 @@ export default function CommentSection({postId}) {
         return ;
       }
 
-      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`,{withCredentials:true})
+      const res = await axios.delete(url + `/api/comment/delete-comment/${commentId}`)
 
       if(res.data.success)
       {
