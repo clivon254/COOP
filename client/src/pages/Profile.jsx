@@ -44,8 +44,9 @@ export default function Profile() {
     const dispatch = useDispatch()
 
     axios.defaults.withCredentials = true 
-    
+    axios.defaults.xhrFields = { withCredentials: true };
 
+    
     const handleImageChange = (e) => {
 
         const file = e.target.files[0]
