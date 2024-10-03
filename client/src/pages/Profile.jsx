@@ -260,7 +260,7 @@ export default function Profile() {
                 )}
 
                 <img 
-                    src={imageFileUrl || User.profilePicture}
+                    src={imageFileUrl || User?.profilePicture}
                     alt="user" 
                     className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
                         imageFileImageUploadProgress &&
@@ -278,7 +278,7 @@ export default function Profile() {
                 type='text'
                 name="username"
                 placeholder='username'
-                defaultValue={User.username}
+                defaultValue={User?.username}
                 onChange={handleChange}
             />
 
@@ -286,7 +286,7 @@ export default function Profile() {
                 type='email'
                 name="email"
                 placeholder='email'
-                defaultValue={User.email}
+                defaultValue={User?.email}
                 onChange={handleChange}
             />
 
