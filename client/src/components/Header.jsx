@@ -31,29 +31,27 @@ export default function Header() {
 
   const dispatch = useDispatch()
 
-  // handleSignOut
-  const handleSignOut = async () => {
+  // handleSignout
+  const handleSignout = async () => {
 
     try
     {
-      const res = await axios.post(url + '/api/auth/sign-out',{},{withCredentials:true})
+        
+        dispatch(signOutSuccess())
 
-      if(res.data.success)
-        {
-            dispatch(signOutSuccess())
+        localStorage.removeItem('token')
 
-            toast.success('signed out successfully')
+        toast.success("sign out successfully") 
 
-            navigate('/')
-      }
-
+        navigate('/')
+       
     }
     catch(error)
     {
         console.log(error.message)
     }
 
-  }
+}
 
   useEffect(() => {
    
@@ -230,7 +228,7 @@ return (
                   <Dropdown.Divider/>
 
                   <Dropdown.Item 
-                      onClick={handleSignOut}
+                      onClick={handleSignout}
                   >
                       Sign out
                   </Dropdown.Item>

@@ -167,6 +167,8 @@ export default function AddPost() {
 
                 <option value="Sports" >Sports</option>
 
+                <option value="Fun" >Fun</option>
+
             </Select>
 
           </div>

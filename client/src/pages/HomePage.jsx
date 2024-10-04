@@ -46,7 +46,7 @@ export default function HomePage() {
       icon: <GiClothes />,
     },
     {
-      label: "Gossip",
+      label: "Fun",
       color: "bg-[#000000]",
       icon: <BsCodeSlash />,
     },

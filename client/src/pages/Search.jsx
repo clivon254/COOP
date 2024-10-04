@@ -236,7 +236,7 @@ export default function Search() {
 
                 <option value="Sports">Sports</option>
 
-                <option value="Gossip">Gossip</option>
+                <option value="Fun">Fun</option>
 
               </Select>
 
