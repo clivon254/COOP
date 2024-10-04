@@ -40,11 +40,15 @@ export default function OAuth() {
                 googlePhotoUrl:resultsFromGoogle.user.displayName
             }
 
-            const res = await axios.post(url + '/api/auth/google', data,{withCredentials:true})
+            const res = await axios.post(url + '/api/auth/google', data)
 
             if(res.data.success)
             {
                 dispatch(signInSuccess(res.data.rest))
+
+                localStorage.setItem("token",res.data.token)
+
+                setToken(res.data.token)
 
                 navigate('/')
             }
