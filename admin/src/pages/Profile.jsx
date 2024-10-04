@@ -15,7 +15,7 @@ import { StoreContext } from '../context/store'
 
 export default function Profile() {
 
-    const {url} = useContext(StoreContext)
+    const {url,token} = useContext(StoreContext)
 
     const {User ,error ,loading} = useSelector(state => state.user)
 
@@ -147,7 +147,7 @@ export default function Profile() {
         {
             dispatch(updateUserStart())
 
-            const res = await axios.put(url + `/api/user/update-user/${User._id}`,formData)
+            const res = await axios.put(url + `/api/user/update-user/${User._id}`,formData,{headers:{token}})
 
             if(res.data.success)
             {
