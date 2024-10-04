@@ -195,16 +195,15 @@ export default function Profile() {
 
         try
         {
-            const res = await axios.post(url + "/api/auth/sign-out")
+            
+            dispatch(signOutSuccess())
 
-            if(res.data.success)
-            {
-                dispatch(signOutSuccess())
+            localStorage.removeItem('token')
 
-                toast.success("sign out successfully")
+            toast.success("sign out successfully") 
 
-                navigate('/landing-page')
-            }
+            navigate('/')
+            
         }
         catch(error)
         {
