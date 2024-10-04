@@ -16,7 +16,7 @@ import { StoreContext } from '../context/store'
 
 export default function OAuth() {
 
-    const {url} = useContext(StoreContext)
+    const {url,setToken} = useContext(StoreContext)
 
     const auth = getAuth(app)
 
