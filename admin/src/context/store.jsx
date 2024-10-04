@@ -28,6 +28,8 @@ export default function StoreContextProvider(props) {
 
     const [popularWriters, setPopularWriters] = useState([])
 
+    const [users, setUsers] = useState([])
+
 
 
     // fetchData
@@ -157,6 +159,31 @@ export default function StoreContextProvider(props) {
 
     }
 
+    // fetchUsers
+    const fetchUsers = async () => {
+
+      try
+      {
+        setLoading(false)
+
+        const res = await axios.get(url + "/api/user/get-users",{headers:{token}})
+
+        if(res.data.success)
+        {
+            setLoading(true)
+
+            setUsers(res.data.usersWithoutPassword)
+        }
+
+      }
+      catch(error)
+      {
+        console.log(error.message)
+      }
+
+    }
+
+    console.log(users)
 
     useEffect(() => {
 
@@ -165,6 +192,8 @@ export default function StoreContextProvider(props) {
       fetchPosts()
 
       fetchPopularArticles()
+
+      fetchUsers()
 
       function loadData()
       {
@@ -203,7 +232,9 @@ export default function StoreContextProvider(props) {
       popularWriters,
       setPopularWriters,
       token,
-      setToken
+      setToken,
+      users,
+      setUsers
     }
 
   return (

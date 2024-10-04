@@ -20,6 +20,7 @@ import Header from './components/Header'
 import DashSidebar from './components/DashSidebar'
 import Profile from './pages/Profile'
 import WriterPage from './pages/WriterPage'
+import EditProfile from './pages/editProfile'
 
 
 
@@ -75,6 +76,8 @@ export default function App() {
                 <Route path="/posts" element={<Posts/>}/>
 
                 <Route path="/profile" element={<Profile/>}/>
+
+                <Route path="/editProfile/:userId" element={<EditProfile/>}/>
 
                 <Route path="/add-post" element={<AddPost/>}/>
 

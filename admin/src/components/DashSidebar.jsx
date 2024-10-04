@@ -4,7 +4,7 @@ import { Sidebar } from 'flowbite-react'
 import React, { useContext, useState } from 'react'
 import { StoreContext } from '../context/store'
 import { Link } from 'react-router-dom'
-import { HiChartPie, HiDatabase, HiDocumentAdd,HiOutlineBookOpen } from "react-icons/hi"
+import { HiChartPie,HiUsers, HiDatabase, HiDocumentAdd,HiOutlineBookOpen } from "react-icons/hi"
 
 export default function DashSidebar() {
 
@@ -51,6 +51,18 @@ export default function DashSidebar() {
                   >
                     Anaylitics
                   </Sidebar.Item>
+
+              </Link>
+
+              <Link to="/users" onClick={() => setOpen(false)}>
+              
+                <Sidebar.Item
+                  active={window.location.pathname === '/users'}
+                  as="div"
+                  icon={HiUsers}
+                >
+                  Users
+                </Sidebar.Item>
 
               </Link>
 
