@@ -59,6 +59,8 @@ export default function CommentSection({postId}) {
           fetchComments()
 
           toast.success("comment added successfully")
+
+          setFormData({})
         }
     }
     catch(error)
