@@ -1,6 +1,6 @@
 
 
-import React, { useRef, useState ,useEffect, useContext} from 'react'
+import React, { useRef, useState ,useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage"
 import { deleteUserFailure, deleteUserSuccess, signOutSuccess, updateUserFailure, updateUserStart,updateUserSuccess } from '../redux/user/userSlice'
@@ -10,14 +10,16 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { Alert, Button, Modal, TextInput } from 'flowbite-react'
 import { app } from '../firebase'
+import { useContext } from 'react'
 import { StoreContext } from '../context/store'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function Profile() {
 
-    const {url,token} = useContext(StoreContext)
-
     const {User ,error ,loading} = useSelector(state => state.user)
+
+    const {url,token} = useContext(StoreContext)
 
     const [imageFile ,setImageFile] = useState(null)
 
@@ -42,8 +44,8 @@ export default function Profile() {
 
     const dispatch = useDispatch()
 
-    axios.defaults.withCredentials = true
-    
+    const navigate = useNavigate()
+
 
     const handleImageChange = (e) => {
 
@@ -147,7 +149,7 @@ export default function Profile() {
         {
             dispatch(updateUserStart())
 
-            const res = await axios.put(url + `/api/user/update-user/${User._id}`,formData,{headers:{token}})
+            const res = await axios.put(url +`/api/user/update-user/${User._id}`,formData,{headers:{token}})
 
             if(res.data.success)
             {
@@ -203,7 +205,7 @@ export default function Profile() {
             toast.success("sign out successfully") 
 
             navigate('/')
-            
+           
         }
         catch(error)
         {
@@ -257,7 +259,7 @@ export default function Profile() {
                 )}
 
                 <img 
-                    src={imageFileUrl || User.profilePicture}
+                    src={imageFileUrl || User?.profilePicture}
                     alt="user" 
                     className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
                         imageFileImageUploadProgress &&
@@ -275,7 +277,7 @@ export default function Profile() {
                 type='text'
                 name="username"
                 placeholder='username'
-                defaultValue={User.username}
+                defaultValue={User?.username}
                 onChange={handleChange}
             />
 
@@ -283,7 +285,7 @@ export default function Profile() {
                 type='email'
                 name="email"
                 placeholder='email'
-                defaultValue={User.email}
+                defaultValue={User?.email}
                 onChange={handleChange}
             />
 
